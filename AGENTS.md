@@ -66,11 +66,13 @@ If a user prompt or requested action conflicts with our established architecture
 
 ---
 
-### LAW 7: Universal Agent Verification Protocol
-Before marking any task as complete in `docs/01_PROJECT_TRACKER.md`, you must run:
-1. `pnpm typecheck` (or `turbo run check`) — Zero TypeScript errors.
-2. `pnpm lint` — Zero lint warnings or errors.
-3. Visual / runtime sanity check (Browser verification or dev server check).
+### LAW 7: Universal Agent Verification & Proof Collection Protocol
+Before marking any task as complete in `docs/01_PROJECT_TRACKER.md`, the agent must:
+1. Run `bun run check` (or `bun x turbo run check`) — Zero TypeScript errors.
+2. Run `bun run lint` — Zero lint warnings or errors.
+3. Run functional verification tests (`bun test`).
+4. **Capture Visual Proof:** Store screenshot (`.png`) and/or screen recording (`.webp`) of the working feature inside `docs/verification/screenshots/` or `docs/verification/recordings/`.
+5. **Link Evidence:** Explicitly link the verification media and command output in `docs/01_PROJECT_TRACKER.md`. Without attached proof, the task is NOT considered verified.
 
 ---
 

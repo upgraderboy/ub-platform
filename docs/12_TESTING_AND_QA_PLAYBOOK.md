@@ -4,23 +4,50 @@ This document defines the automated verification commands, manual pre-flight che
 
 ---
 
-## 1. Automated Verification Commands
+## 1. Automated Verification Commands (Bun)
 
 Before marking any task as `🟢 Implemented & Verified` in [`01_PROJECT_TRACKER.md`](01_PROJECT_TRACKER.md), run:
 
 ```bash
 # 1. Full monorepo typecheck (Zero TypeScript errors)
-pnpm turbo run check
+bun x turbo run check
 
 # 2. Strict linting across Web, Admin, Mobile, and Packages
-pnpm turbo run lint
+bun x turbo run lint
 
-# 3. Unit & schema validation tests
-pnpm turbo run test
+# 3. Unit, schema validation & functional tests
+bun test
 
 # 4. Production build check (Zero bundle errors)
-pnpm turbo run build
+bun x turbo run build
 ```
+
+---
+
+## 2. In-Project Verification & Security Scripts (`scripts/`)
+
+The repository includes standalone executable test scripts that can be invoked with Bun:
+
+```bash
+# Complete sanity pipeline (Typecheck, Lint, Tests, Build)
+bun run verify            # executes scripts/verify-all.sh
+
+# Security & Secret Leak Scanner
+bun run audit:security    # executes scripts/security-audit.sh
+
+# Functional Smoke Test (HTTP 200 checks, Zod payload verification)
+bun run test:smoke        # executes scripts/smoke-test.ts
+```
+
+---
+
+## 3. Mandatory Proof Collection Protocol (Visual Evidence)
+
+For any user-facing feature or interactive component:
+1. **Screen Recording (`.webp` / `.mp4`):** Record the feature working interactively (e.g. running terminal commands, navigating folder trees, opening modals).
+2. **Screenshots (`.png`):** Capture high-res desktop and mobile viewport states.
+3. **Storage Location:** Save files directly in `docs/verification/screenshots/` or `docs/verification/recordings/`.
+4. **Permanent Reference in Tracker:** Link the media path in `docs/01_PROJECT_TRACKER.md` so future developers can inspect how the feature was verified at that exact point in time.
 
 ---
 

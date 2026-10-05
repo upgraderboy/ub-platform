@@ -9,7 +9,7 @@ This document records the exact technology stack, libraries, and tools chosen fo
 | Technology | Purpose | Justification |
 | :--- | :--- | :--- |
 | **Turborepo** | Monorepo Orchestration | High-velocity build pipeline with intelligent remote caching and task orchestration across Web, Admin, and Mobile. |
-| **pnpm** | Package Manager | Fast, deterministic, space-efficient symlink-based package management ideal for monorepos. |
+| **Bun (v1.3+)** | Package Manager & Runtime | Ultra-fast JavaScript/TypeScript package manager, bundler, and test runner. Native TypeScript execution and instant script startup. |
 | **TypeScript 5.x** | Language | Strict end-to-end type safety across the entire repository. Banned: `any` and `@ts-ignore`. |
 | **Zod** | Schema Validation | Runtime data validation and TypeScript type inference. Guarantees that no invalid payload enters the system. |
 

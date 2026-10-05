@@ -38,16 +38,19 @@
 - [x] Create `docs/10_SECURITY_AND_ACCESS_CONTROL.md` (`🟢 Verified`)
 - [x] Create `docs/11_MOBILE_SPEC_AND_OFFLINE_SYNC.md` (`🟢 Verified`)
 - [x] Create `docs/12_TESTING_AND_QA_PLAYBOOK.md` (`🟢 Verified`)
+- [x] Create `docs/13_MULTI_AGENT_TEAM_ROLES.md` (`🟢 Verified`)
+- [x] Create `docs/verification/` proof directory (screenshots & recordings) (`🟢 Verified`)
 - [x] Create `docs/decisions/ADR-001-monorepo-structure.md` (`🟢 Verified`)
 - [x] Create `docs/decisions/ADR-002-decoupled-admin-app.md` (`🟢 Verified`)
 - [x] Create root `README.md` (`🟢 Verified`)
 
 ### Phase 1: Turborepo Monorepo & Core Packages
-- [ ] Initialize Turborepo root (`turbo.json`, `pnpm-workspace.yaml`, root `package.json`)
+- [ ] Initialize Turborepo root (`turbo.json`, `package.json` with Bun workspaces)
 - [ ] Configure `packages/config` (ESLint, Prettier, TypeScript, Tailwind presets)
 - [ ] Build `packages/types` (Zod schemas for Project, Blog, Resource, Memory, Lead, SEO)
 - [ ] Build `packages/ui` (Design tokens, kinetic button, card, spotlight, glassmorphism)
 - [ ] Build `packages/api` (Decoupled client layer for database queries and mutations)
+- [ ] Setup in-project verification scripts in `scripts/` (`verify-all.sh`, `security-audit.sh`, `smoke-test.ts`)
 
 ### Phase 2: Public Web Application (`apps/web`)
 - [ ] Scaffold `apps/web` with Next.js 15 App Router

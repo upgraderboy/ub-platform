@@ -6,7 +6,7 @@ This document specifies the technical architecture, directory structure, data fl
 
 ## 1. System Overview & Monorepo Topology
 
-The UB Platform is structured as an enterprise-grade **Turborepo Monorepo** managed with `pnpm`.
+The UB Platform is structured as an enterprise-grade **Turborepo Monorepo** managed with **Bun Workspaces**.
 
 ```text
 UB Platform (Turborepo)
