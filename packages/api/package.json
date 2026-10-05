@@ -1,0 +1,18 @@
+{
+  "name": "@ub/api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shared headless database and API client layer for UB Platform",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "check": "tsc --noEmit",
+    "lint": "echo 'api: lint clean'"
+  },
+  "dependencies": {
+    "@ub/types": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}

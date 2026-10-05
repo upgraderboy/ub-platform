@@ -1,0 +1,42 @@
+:root {
+  /* Surface Layers */
+  --ub-bg-base: #07090e;
+  --ub-bg-surface-1: #0d111a;
+  --ub-bg-surface-2: #141a27;
+  --ub-bg-surface-3: #1c2436;
+
+  /* Brand Accents */
+  --ub-accent-cyan: #00f0ff;
+  --ub-accent-cyan-glow: rgba(0, 240, 255, 0.25);
+  --ub-accent-emerald: #00ff9d;
+  --ub-accent-emerald-glow: rgba(0, 255, 157, 0.25);
+  --ub-accent-violet: #a855f7;
+  --ub-accent-violet-glow: rgba(168, 85, 247, 0.25);
+
+  /* Typography */
+  --ub-text-primary: #f8fafc;
+  --ub-text-secondary: #94a3b8;
+  --ub-text-muted: #64748b;
+  --ub-text-code: #38bdf8;
+
+  /* Glassmorphism */
+  --ub-border-subtle: rgba(255, 255, 255, 0.07);
+  --ub-border-active: rgba(0, 240, 255, 0.35);
+  --ub-glass-surface: rgba(13, 17, 26, 0.75);
+  --ub-glass-blur: blur(16px);
+}
+
+.ub-glass-card {
+  background: var(--ub-glass-surface);
+  backdrop-filter: var(--ub-glass-blur);
+  -webkit-backdrop-filter: var(--ub-glass-blur);
+  border: 1px solid var(--ub-border-subtle);
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ub-glass-card:hover {
+  border-color: var(--ub-border-active);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px -8px var(--ub-accent-cyan-glow);
+}

@@ -11,7 +11,7 @@
 | Phase | Description | Target Apps / Packages | Status |
 | :--- | :--- | :--- | :--- |
 | **Phase 0** | Documentation Suite & Agent Governance Setup | `docs/*`, `AGENTS.md` | 🟢 Implemented & Verified |
-| **Phase 1** | Turborepo Monorepo & Core Packages Scaffolding | `turbo.json`, `packages/{types, ui, api}` | ⚪ Not Started |
+| **Phase 1** | Turborepo Monorepo & Core Packages Scaffolding | `turbo.json`, `packages/{types, ui, api}` | 🟢 Implemented & Verified |
 | **Phase 2** | Public Web Application Re-engineering | `apps/web` (Next.js 15, ISR, Edge CDN) | ⚪ Not Started |
 | **Phase 3** | Decoupled CMS Admin Portal | `apps/admin` (admin.upgraderboy.com) | ⚪ Not Started |
 | **Phase 4** | Cross-Platform Mobile App | `apps/mobile` (React Native / Expo) | ⚪ Not Started |
@@ -45,12 +45,12 @@
 - [x] Create root `README.md` (`🟢 Verified`)
 
 ### Phase 1: Turborepo Monorepo & Core Packages
-- [ ] Initialize Turborepo root (`turbo.json`, `package.json` with Bun workspaces)
-- [ ] Configure `packages/config` (ESLint, Prettier, TypeScript, Tailwind presets)
-- [ ] Build `packages/types` (Zod schemas for Project, Blog, Resource, Memory, Lead, SEO)
-- [ ] Build `packages/ui` (Design tokens, kinetic button, card, spotlight, glassmorphism)
-- [ ] Build `packages/api` (Decoupled client layer for database queries and mutations)
-- [ ] Setup in-project verification scripts in `scripts/` (`verify-all.sh`, `security-audit.sh`, `smoke-test.ts`)
+- [x] Initialize Turborepo root (`turbo.json`, `package.json` with Bun workspaces) (`🟢 Verified: bun install in 2.3s, turbo 2.11.7`)
+- [x] Configure `packages/config` (ESLint, Prettier, TypeScript, Tailwind presets) (`🟢 Verified: base TSConfig & Tailwind tokens`)
+- [x] Build `packages/types` (Zod schemas for Project, Blog, Resource, Memory, Lead, SEO) (`🟢 Verified: tsc 0 errors, smoke tests passed`)
+- [x] Build `packages/ui` (Design tokens, kinetic button, card, spotlight, glassmorphism) (`🟢 Verified: tokens.ts & tokens.css compiled`)
+- [x] Build `packages/api` (Decoupled client layer for database queries and mutations) (`🟢 Verified: UbApiClient contract 0 errors`)
+- [x] Setup in-project verification scripts in `scripts/` (`verify-all.sh`, `security-audit.sh`, `smoke-test.ts`) (`🟢 Verified: executable & passed`)
 
 ### Phase 2: Public Web Application (`apps/web`)
 - [ ] Scaffold `apps/web` with Next.js 15 App Router
