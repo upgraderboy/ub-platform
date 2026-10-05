@@ -44,10 +44,11 @@ bun run test:smoke        # executes scripts/smoke-test.ts
 ## 3. Mandatory Proof Collection Protocol (Visual Evidence)
 
 For any user-facing feature or interactive component:
-1. **Screen Recording (`.webp` / `.mp4`):** Record the feature working interactively (e.g. running terminal commands, navigating folder trees, opening modals).
-2. **Screenshots (`.png`):** Capture high-res desktop and mobile viewport states.
-3. **Storage Location:** Save files directly in `docs/verification/screenshots/` or `docs/verification/recordings/`.
-4. **Permanent Reference in Tracker:** Link the media path in `docs/01_PROJECT_TRACKER.md` so future developers can inspect how the feature was verified at that exact point in time.
+1. **Zero-Clutter Rule:** NEVER record or save intermediate failure attempts or broken builds into `docs/verification/`. Only capture media **at the end, once the feature has passed all checks and is working properly**.
+2. **Screen Recording (`.webp` / `.mp4`):** Record the final feature working interactively (e.g. running terminal commands, navigating folder trees, opening modals).
+3. **Screenshots (`.png`):** Capture high-res desktop and mobile viewport states of the finished UI.
+4. **Storage Location:** Save files directly in `docs/verification/screenshots/` or `docs/verification/recordings/` using clean semantic naming (e.g. `terminal-shell-desktop.png`).
+5. **Permanent Reference in Tracker:** Link the media path in `docs/01_PROJECT_TRACKER.md` as permanent proof of verified delivery.
 
 ---
 

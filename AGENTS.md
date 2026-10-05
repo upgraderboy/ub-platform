@@ -71,8 +71,10 @@ Before marking any task as complete in `docs/01_PROJECT_TRACKER.md`, the agent m
 1. Run `bun run check` (or `bun x turbo run check`) — Zero TypeScript errors.
 2. Run `bun run lint` — Zero lint warnings or errors.
 3. Run functional verification tests (`bun test`).
-4. **Capture Visual Proof:** Store screenshot (`.png`) and/or screen recording (`.webp`) of the working feature inside `docs/verification/screenshots/` or `docs/verification/recordings/`.
-5. **Link Evidence:** Explicitly link the verification media and command output in `docs/01_PROJECT_TRACKER.md`. Without attached proof, the task is NOT considered verified.
+4. **Capture Final Working Proof (Zero Clutter):** 
+   * **Strict Rule:** NEVER save intermediate broken tests, failure screenshots, or debug recordings into `docs/verification/`.
+   * Only capture and save the final screenshot (`.png`) and/or screen recording (`.webp`/`.mp4`) **at the very end, once the feature is 100% functional, responsive, and working properly**.
+5. **Link Evidence:** Explicitly link the final working verification media and command output in `docs/01_PROJECT_TRACKER.md`. Without attached working proof, the task is NOT considered verified.
 
 ---
 
