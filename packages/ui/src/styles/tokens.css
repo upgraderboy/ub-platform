@@ -1,29 +1,35 @@
 :root {
-  /* Surface Layers */
-  --ub-bg-base: #07090e;
-  --ub-bg-surface-1: #0d111a;
-  --ub-bg-surface-2: #141a27;
-  --ub-bg-surface-3: #1c2436;
+  /* Default to Neon Green accent */
+  --accent-color: #00FF1E;
+  --accent-glow: rgba(0, 255, 30, 0.25);
+  --accent-border: rgba(0, 255, 30, 0.4);
 
-  /* Brand Accents */
-  --ub-accent-cyan: #00f0ff;
-  --ub-accent-cyan-glow: rgba(0, 240, 255, 0.25);
-  --ub-accent-emerald: #00ff9d;
-  --ub-accent-emerald-glow: rgba(0, 255, 157, 0.25);
-  --ub-accent-violet: #a855f7;
-  --ub-accent-violet-glow: rgba(168, 85, 247, 0.25);
-
-  /* Typography */
-  --ub-text-primary: #f8fafc;
-  --ub-text-secondary: #94a3b8;
-  --ub-text-muted: #64748b;
-  --ub-text-code: #38bdf8;
-
-  /* Glassmorphism */
-  --ub-border-subtle: rgba(255, 255, 255, 0.07);
-  --ub-border-active: rgba(0, 240, 255, 0.35);
-  --ub-glass-surface: rgba(13, 17, 26, 0.75);
+  /* Light Theme Surfaces */
+  --ub-bg-base: #F8FAFC;
+  --ub-bg-surface-1: #FFFFFF;
+  --ub-bg-surface-2: #F1F5F9;
+  --ub-bg-surface-3: #E2E8F0;
+  --ub-border-subtle: rgba(0, 0, 0, 0.08);
+  --ub-text-primary: #0F172A;
+  --ub-text-secondary: #475569;
+  --ub-text-muted: #94A3B8;
+  --ub-text-code: #0284C7;
+  --ub-glass-surface: rgba(255, 255, 255, 0.85);
   --ub-glass-blur: blur(16px);
+}
+
+.dark {
+  /* Dark Theme Surfaces */
+  --ub-bg-base: #0B0F19;
+  --ub-bg-surface-1: #131C31;
+  --ub-bg-surface-2: #1E293B;
+  --ub-bg-surface-3: #060911;
+  --ub-border-subtle: rgba(255, 255, 255, 0.08);
+  --ub-text-primary: #F8FAFC;
+  --ub-text-secondary: #94A3B8;
+  --ub-text-muted: #64748B;
+  --ub-text-code: #38BDF8;
+  --ub-glass-surface: rgba(19, 28, 49, 0.75);
 }
 
 .ub-glass-card {
@@ -36,7 +42,7 @@
 }
 
 .ub-glass-card:hover {
-  border-color: var(--ub-border-active);
+  border-color: var(--accent-border);
   transform: translateY(-3px);
-  box-shadow: 0 12px 32px -8px var(--ub-accent-cyan-glow);
+  box-shadow: 0 12px 32px -8px var(--accent-glow);
 }
