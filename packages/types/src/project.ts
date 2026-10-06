@@ -6,8 +6,19 @@ export const ProjectCategorySchema = z.enum([
   'frontend',
   'cloud',
   'ai',
+  'opensource',
+  'devops',
+  'iot',
 ]);
 export type ProjectCategory = z.infer<typeof ProjectCategorySchema>;
+
+export const ProjectStatusSchema = z.enum([
+  'shipped',
+  'in_development',
+  'winner',
+  'concept',
+]);
+export type ProjectStatus = z.infer<typeof ProjectStatusSchema>;
 
 export const CaseStudySchema = z.object({
   problem: z.string().min(10),
@@ -25,6 +36,7 @@ export const ProjectSchema = z.object({
   slug: z.string().min(3).regex(/^[a-z0-9-]+$/),
   shortDescription: z.string().max(250),
   category: ProjectCategorySchema,
+  status: ProjectStatusSchema.default('shipped'),
   tags: z.array(z.string()),
   coverImage: z.string().url(),
   demoUrl: z.string().url().nullable().optional(),

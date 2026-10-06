@@ -37,6 +37,8 @@ export const metadata: Metadata = {
   authors: [{ name: "Ankit Bhuria", url: "https://upgraderboy.com" }],
 };
 
+import { CommandPalette } from "../components/CommandPalette";
+
 export default function RootLayout({
   children,
 }: {
@@ -48,6 +50,7 @@ export default function RootLayout({
       className={`dark scroll-smooth ${inter.variable} ${poppins.variable} ${firaCode.variable}`}
     >
       <body className="min-h-full flex flex-col font-sans bg-slate-50 dark:bg-[#0B0F19] text-slate-800 dark:text-slate-100 antialiased selection:bg-[#00FF1E] selection:text-[#0B0F19]">
+        <CommandPalette />
         {children}
       </body>
     </html>

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useSyncExternalStore } from 'react';
 import Link from 'next/link';
-import { Moon, Sun, Menu, X, ArrowRight, Terminal } from 'lucide-react';
+import { Moon, Sun, Menu, X, ArrowRight, Terminal, Search } from 'lucide-react';
 
 interface AccentTheme {
   name: string;
@@ -88,17 +88,18 @@ export function Navbar() {
         </Link>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center space-x-7 font-medium text-sm text-slate-600 dark:text-slate-300">
-          <Link href="#home" className="hover:text-[var(--accent-color)] transition-colors">Home</Link>
-          <Link href="#about" className="hover:text-[var(--accent-color)] transition-colors">About</Link>
-          <Link href="#services" className="hover:text-[var(--accent-color)] transition-colors">Services</Link>
-          <Link href="#portfolio" className="hover:text-[var(--accent-color)] transition-colors">Portfolio</Link>
-          <Link href="#community" className="hover:text-[var(--accent-color)] transition-colors">Community</Link>
-          <Link href="#terminal" className="hover:text-[var(--accent-color)] transition-colors font-mono flex items-center space-x-1">
+        <nav className="hidden md:flex items-center space-x-6 font-medium text-sm text-slate-600 dark:text-slate-300">
+          <Link href="/" className="hover:text-[var(--accent-color)] transition-colors">Home</Link>
+          <Link href="/services" className="hover:text-[var(--accent-color)] transition-colors">Services</Link>
+          <Link href="/projects" className="hover:text-[var(--accent-color)] transition-colors">Projects</Link>
+          <Link href="/blogs" className="hover:text-[var(--accent-color)] transition-colors">Blogs</Link>
+          <Link href="/resources" className="hover:text-[var(--accent-color)] transition-colors">Resources</Link>
+          <Link href="/memories" className="hover:text-[var(--accent-color)] transition-colors">Memories</Link>
+          <Link href="/#terminal" className="hover:text-[var(--accent-color)] transition-colors font-mono flex items-center space-x-1">
             <Terminal className="w-3.5 h-3.5 text-[var(--accent-color)] inline" />
             <span>Terminal</span>
           </Link>
-          <Link href="#contact" className="hover:text-[var(--accent-color)] transition-colors">Contact</Link>
+          <Link href="/contact" className="hover:text-[var(--accent-color)] transition-colors">Contact</Link>
         </nav>
 
         {/* Controls: Theme Color Presets + Light/Dark Toggle + CTA */}
@@ -117,6 +118,21 @@ export function Navbar() {
               />
             ))}
           </div>
+
+          {/* Command Palette Trigger Button */}
+          <button
+            id="cmdk-trigger"
+            onClick={() => {
+              window.dispatchEvent(new CustomEvent('open-cmdk'));
+            }}
+            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs text-slate-500 dark:text-slate-400 hover:border-[var(--accent-color)] hover:text-slate-800 dark:hover:text-white transition-all shadow-sm cursor-pointer"
+            title="Search & Commands (⌘K)"
+            aria-label="Open command palette"
+          >
+            <Search className="w-3.5 h-3.5 text-slate-400" />
+            <span className="font-mono text-[10px] font-bold bg-slate-200 dark:bg-slate-700 px-1 py-0.5 rounded text-slate-600 dark:text-slate-300">⌘K</span>
+            <span className="hidden xl:inline">Search</span>
+          </button>
 
           {/* Light / Dark Mode Toggle Button */}
           <button
@@ -156,13 +172,28 @@ export function Navbar() {
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-white dark:bg-[#0B0F19] border-b border-slate-200 dark:border-slate-800 px-6 py-6 space-y-4 shadow-xl">
-          <Link href="#home" onClick={() => setMobileMenuOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-[var(--accent-color)] font-medium">Home</Link>
-          <Link href="#about" onClick={() => setMobileMenuOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-[var(--accent-color)] font-medium">About</Link>
-          <Link href="#services" onClick={() => setMobileMenuOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-[var(--accent-color)] font-medium">Services</Link>
-          <Link href="#portfolio" onClick={() => setMobileMenuOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-[var(--accent-color)] font-medium">Portfolio</Link>
-          <Link href="#community" onClick={() => setMobileMenuOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-[var(--accent-color)] font-medium">Community</Link>
-          <Link href="#terminal" onClick={() => setMobileMenuOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-[var(--accent-color)] font-mono font-medium">Terminal</Link>
-          <Link href="#contact" onClick={() => setMobileMenuOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-[var(--accent-color)] font-medium">Contact</Link>
+          <button
+            onClick={() => {
+              setMobileMenuOpen(false);
+              window.dispatchEvent(new CustomEvent('open-cmdk'));
+            }}
+            className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium text-xs border border-slate-200 dark:border-slate-700"
+          >
+            <span className="flex items-center space-x-2">
+              <Search className="w-3.5 h-3.5 text-slate-400" />
+              <span>Search & Command Palette</span>
+            </span>
+            <span className="font-mono text-[10px] font-bold bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded text-slate-600 dark:text-slate-300">⌘K</span>
+          </button>
+
+          <Link href="/" onClick={() => setMobileMenuOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-[var(--accent-color)] font-medium">Home</Link>
+          <Link href="/services" onClick={() => setMobileMenuOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-[var(--accent-color)] font-medium">Services</Link>
+          <Link href="/projects" onClick={() => setMobileMenuOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-[var(--accent-color)] font-medium">Projects</Link>
+          <Link href="/blogs" onClick={() => setMobileMenuOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-[var(--accent-color)] font-medium">Blogs</Link>
+          <Link href="/resources" onClick={() => setMobileMenuOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-[var(--accent-color)] font-medium">Resources</Link>
+          <Link href="/memories" onClick={() => setMobileMenuOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-[var(--accent-color)] font-medium">Memories</Link>
+          <Link href="/#terminal" onClick={() => setMobileMenuOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-[var(--accent-color)] font-mono font-medium">Terminal</Link>
+          <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="block text-slate-700 dark:text-slate-300 hover:text-[var(--accent-color)] font-medium">Contact</Link>
           
           <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
             <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">Accent Theme:</span>
