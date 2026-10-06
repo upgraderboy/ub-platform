@@ -98,8 +98,8 @@ export function GooglePhotosProjectGrid({ projects }: GooglePhotosProjectGridPro
     <div className="space-y-12">
       {groups.map((group) => (
         <section key={group.id} className="space-y-4">
-          {/* Google Photos Sticky-Style Month Timestamp Header */}
-          <div className="sticky top-20 z-20 py-2.5 px-4 rounded-2xl bg-slate-50/90 dark:bg-[#0B0F19]/90 backdrop-blur-md border border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between shadow-xs">
+          {/* Google Photos Month Timestamp Header */}
+          <div className="py-2.5 px-4 rounded-2xl bg-slate-100/70 dark:bg-[#131C31]/70 border border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between shadow-xs">
             <div className="flex items-center space-x-2">
               <span className="font-heading font-black text-base sm:text-lg text-slate-900 dark:text-white tracking-tight">
                 {group.monthYearTitle}

@@ -5,10 +5,10 @@ import { Navbar } from '../../components/Navbar';
 import { Footer } from '../../components/Footer';
 import { PROJECTS_DATA } from '../../data/projectsData';
 import {
-  ProjectSearchBar,
+  ModernSearchCapsule,
   SearchScopeField,
   CategoryOption,
-} from '../../components/ProjectSearchBar';
+} from '../../components/ModernSearchCapsule';
 import { DateRange } from '../../components/DateRangePicker';
 import { GooglePhotosProjectGrid } from '../../components/GooglePhotosProjectGrid';
 import { Sparkles } from 'lucide-react';
@@ -124,32 +124,32 @@ export default function ProjectsPage() {
   }, [searchQuery, selectedFields, selectedCategory, dateRange]);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#0B0F19] text-slate-800 dark:text-slate-100 flex flex-col pt-20">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#0B0F19] text-slate-800 dark:text-slate-100 flex flex-col pt-16 sm:pt-20 overflow-x-hidden">
       <Navbar />
 
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14 space-y-10">
+      <main className="flex-1 max-w-7xl mx-auto w-full px-3.5 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-8">
         {/* Hero Header */}
-        <section className="text-center max-w-3xl mx-auto space-y-3">
+        <section className="text-center max-w-3xl mx-auto space-y-2.5 px-2">
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[var(--accent-glow)] border border-[var(--accent-border)] text-xs font-mono font-bold text-[var(--accent-color)]">
             <Sparkles className="w-3.5 h-3.5" />
             <span>ARCHITECTURAL CHRONOLOGY</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-heading font-black tracking-tight text-slate-900 dark:text-white">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-heading font-black tracking-tight text-slate-900 dark:text-white">
             Engineering Milestones.{' '}
             <span className="bg-gradient-to-r from-slate-900 via-slate-600 to-[var(--accent-color)] dark:from-white dark:via-slate-200 dark:to-[var(--accent-color)] bg-clip-text text-transparent">
               Built in Public.
             </span>
           </h1>
 
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-xl mx-auto leading-relaxed">
             Browse our work grouped chronologically by month like Google Photos. Select dates using the calendar or filter by technology and domain.
           </p>
         </section>
 
-        {/* Mobile-Friendly Search & Airbnb Date Range Filter Bar */}
-        <section className="sticky top-20 z-30">
-          <ProjectSearchBar
+        {/* Mobile-Friendly Airbnb-Style Search Capsule */}
+        <section className="sticky top-16 sm:top-20 z-30 pt-1 pb-2">
+          <ModernSearchCapsule
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
             selectedFields={selectedFields}
