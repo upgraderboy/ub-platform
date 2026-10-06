@@ -148,6 +148,11 @@ export function CommandPalette() {
         const current = localStorage.getItem('ub-theme-mode') ?? 'dark';
         const next = current === 'dark' ? 'light' : 'dark';
         localStorage.setItem('ub-theme-mode', next);
+        if (next === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
         window.dispatchEvent(new Event('storage'));
         setIsOpen(false);
       },

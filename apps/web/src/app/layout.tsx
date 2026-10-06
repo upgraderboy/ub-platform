@@ -53,9 +53,41 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark scroll-smooth ${inter.variable} ${poppins.variable} ${firaCode.variable}`}
+      suppressHydrationWarning
+      className={`scroll-smooth ${inter.variable} ${poppins.variable} ${firaCode.variable}`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-slate-50 dark:bg-[#0B0F19] text-slate-800 dark:text-slate-100 antialiased selection:bg-[#00FF1E] selection:text-[#0B0F19]">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('ub-theme-mode');
+                  var isDark = theme ? (theme === 'dark') : true;
+                  if (isDark) {
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
+                  var color = localStorage.getItem('ub-accent-color');
+                  var glow = localStorage.getItem('ub-accent-glow');
+                  var border = localStorage.getItem('ub-accent-border');
+                  if (color) {
+                    document.documentElement.style.setProperty('--accent-color', color);
+                  }
+                  if (glow) {
+                    document.documentElement.style.setProperty('--accent-glow', glow);
+                  }
+                  if (border) {
+                    document.documentElement.style.setProperty('--accent-border', border);
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className="min-h-full flex flex-col font-sans bg-slate-50 dark:bg-[#0B0F19] text-slate-800 dark:text-slate-100 antialiased selection:bg-[var(--accent-color)] selection:text-slate-900">
         <CommandPalette />
         {children}
       </body>
