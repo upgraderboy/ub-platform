@@ -77,18 +77,21 @@
 - [x] Responsive Mobile Navbar (h-16 sm:h-20) and non-colliding scroll headers (`🟢 Verified`)
 - [x] Refined Desktop Island Capsule Navbar with compact `⌘K` shortcut button & single palette dropdown (`🟢 Verified`)
 - [x] Theme Mode & Accent Palette Persistence Across Refresh (Zero Flash of Dark/Green) (`🟢 Verified`)
+- [x] Implement `/blogs` feed & `/blogs/[slug]` rich reader with dynamic ToC (`🟢 Verified`)
 - [x] Verification Proof Media:
   - [Next.js Homepage Dark Mode](file:///Users/upgraderboy/Project%20with%20AI/UB%20Platform/docs/verification/screenshots/nextjs-homepage-dark.png)
   - [Next.js Homepage Light Mode](file:///Users/upgraderboy/Project%20with%20AI/UB%20Platform/docs/verification/screenshots/nextjs-homepage-light.png)
   - [Refined Navbar Desktop Capsule & Theme Persistence](file:///Users/upgraderboy/Project%20with%20AI/UB%20Platform/docs/verification/screenshots/navbar-theme-persistence.png)
   - [Refined Mobile Header (375px)](file:///Users/upgraderboy/Project%20with%20AI/UB%20Platform/docs/verification/screenshots/navbar-mobile-header.png)
   - [Refined Mobile Drawer Menu](file:///Users/upgraderboy/Project%20with%20AI/UB%20Platform/docs/verification/screenshots/navbar-mobile-drawer.png)
+  - [Technical Blogs Hub Index](file:///Users/upgraderboy/Project%20with%20AI/UB%20Platform/docs/verification/screenshots/blogs-hub-index.png)
+  - [Technical Blog Reader Layout & ToC](file:///Users/upgraderboy/Project%20with%20AI/UB%20Platform/docs/verification/screenshots/blogs-reader-layout-toc.png)
+  - [Technical Blog Reader Code Block Copy](file:///Users/upgraderboy/Project%20with%20AI/UB%20Platform/docs/verification/screenshots/blogs-reader-code-block.png)
   - [Command Palette Modal Opened](file:///Users/upgraderboy/Project%20with%20AI/UB%20Platform/docs/verification/screenshots/cmdk-modal-opened-proof.png)
   - [Projects Chronological Timeline](file:///Users/upgraderboy/Project%20with%20AI/UB%20Platform/docs/verification/screenshots/projects-timeline-overview.png)
   - [Multi-Field Search Checkboxes](file:///Users/upgraderboy/Project%20with%20AI/UB%20Platform/docs/verification/screenshots/search-fields-checkboxes.png)
   - [Quick Breakdown Modal](file:///Users/upgraderboy/Project%20with%20AI/UB%20Platform/docs/verification/screenshots/quick-breakdown-modal.png)
   - [Simplified Services Page](file:///Users/upgraderboy/Project%20with%20AI/UB%20Platform/docs/verification/screenshots/simplified-services-page.png)
-- [ ] Implement `/blogs` feed & `/blogs/[slug]` rich reader with dynamic ToC
 - [ ] Implement `/resources` hierarchical folder tree with permalinks & PDF preview
 - [ ] Implement `/memories` masonry timeline gallery
 - [ ] Implement `/contact` dedicated consultation booking page

@@ -43,6 +43,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Ankit Bhuria", url: "https://upgraderboy.com" }],
 };
 
+import Script from "next/script";
 import { CommandPalette } from "../components/CommandPalette";
 
 export default function RootLayout({
@@ -57,7 +58,9 @@ export default function RootLayout({
       className={`scroll-smooth ${inter.variable} ${poppins.variable} ${firaCode.variable}`}
     >
       <head>
-        <script
+        <Script
+          id="theme-initializer"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
