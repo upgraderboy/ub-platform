@@ -3,7 +3,7 @@ import { GithubIcon, LinkedinIcon, YoutubeIcon } from './SocialIcons';
 
 export function Footer() {
   return (
-    <footer className="bg-slate-100 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 py-12 transition-colors">
+    <footer className="relative z-30 bg-slate-100 dark:bg-[#0B0F19] border-t border-slate-200 dark:border-slate-800 py-12 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
         
         {/* Brand identity */}

@@ -10,6 +10,9 @@ import { BlogReadingProgressBar } from '../../../components/BlogReadingProgressB
 import { BlogTableOfContents, TocItem } from '../../../components/BlogTableOfContents';
 import { BlogShareWidget } from '../../../components/BlogShareWidget';
 import { BlogContentRenderer } from '../../../components/BlogContentRenderer';
+import { BlogAudioPlayer } from '../../../components/BlogAudioPlayer';
+import { BlogReaderToolbar } from '../../../components/BlogReaderToolbar';
+import { BlogReactions } from '../../../components/BlogReactions';
 import { BlogCard } from '../../../components/BlogCard';
 import {
   Calendar,
@@ -19,6 +22,7 @@ import {
   CheckCircle2,
   Sparkles,
   ChevronRight,
+  Zap,
 } from 'lucide-react';
 
 interface BlogPostPageProps {
@@ -88,9 +92,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     : 'Recently Published';
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#0B0F19] text-slate-800 dark:text-slate-100 flex flex-col transition-colors">
-      <BlogReadingProgressBar />
+    <div className="min-h-screen bg-slate-50 dark:bg-[#0B0F19] text-slate-800 dark:text-slate-100 flex flex-col transition-colors relative overflow-hidden">
+      <BlogReadingProgressBar totalMinutes={blog.readingTimeMinutes} />
       <Navbar />
+
+      {/* Top Ambient Glow Orb */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-[var(--accent-glow)] rounded-full blur-[140px] pointer-events-none opacity-60 -z-10" />
 
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-20 w-full space-y-10 sm:space-y-12">
         
@@ -125,6 +132,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <Clock className="w-3.5 h-3.5 text-[var(--accent-color)]" />
               <span>{blog.readingTimeMinutes} min read</span>
             </span>
+            <span className="text-slate-300 dark:text-slate-700">•</span>
+            <span className="px-2.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 font-bold text-[11px] border border-emerald-500/20">
+              Verified Production Post
+            </span>
           </div>
 
           {/* Title */}
@@ -137,9 +148,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             {blog.excerpt}
           </p>
 
+          {/* Interactive AI Audio Narration Dispatch Player */}
+          <BlogAudioPlayer
+            title={blog.title}
+            excerpt={blog.excerpt}
+            readingTimeMinutes={blog.readingTimeMinutes}
+          />
+
           {/* Author Badge */}
           <div className="flex items-center space-x-3 pt-2">
-            <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center text-[var(--accent-color)] font-mono font-bold text-sm shadow-sm">
+            <div className="w-11 h-11 rounded-2xl bg-slate-950 dark:bg-slate-900 border border-slate-700/80 flex items-center justify-center text-[var(--accent-color)] font-mono font-black text-sm shadow-md">
               &lt;UB&gt;
             </div>
             <div>
@@ -148,14 +166,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 <CheckCircle2 className="w-3.5 h-3.5 text-[var(--accent-color)]" />
               </div>
               <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
-                Lead Architect & Agency Founder • Upgrader Boy
+                Lead Architect & Agency Founder • National SIH 2024 Winner
               </span>
             </div>
           </div>
         </header>
 
         {/* Featured Cover Image */}
-        <div className="relative h-64 sm:h-96 lg:h-[440px] w-full rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-xl">
+        <div className="relative h-64 sm:h-96 lg:h-[460px] w-full rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-2xl">
           <Image
             src={blog.coverImage}
             alt={blog.title}
@@ -164,16 +182,47 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             sizes="100vw"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
+        </div>
+
+        {/* Executive Takeaways Card */}
+        <div className="p-6 sm:p-7 rounded-3xl bg-white/70 dark:bg-[#131C31]/70 border border-slate-200 dark:border-slate-800 backdrop-blur-md space-y-4 shadow-lg">
+          <div className="flex items-center space-x-2 text-xs font-mono font-bold text-[var(--accent-color)] uppercase tracking-wider">
+            <Zap className="w-4 h-4 text-[var(--accent-color)]" />
+            <span>Executive Architecture Takeaways</span>
+          </div>
+          <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+            {blog.excerpt}
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+            <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-xs space-y-1">
+              <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider">Architecture Focus</span>
+              <div className="font-bold text-slate-900 dark:text-white truncate">{blog.tags.slice(0, 2).join(' + ')}</div>
+            </div>
+            <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-xs space-y-1">
+              <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider">Reading Investment</span>
+              <div className="font-bold text-slate-900 dark:text-white">{blog.readingTimeMinutes} Min Breakdown</div>
+            </div>
+            <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-xs space-y-1">
+              <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider">Testing Standard</span>
+              <div className="font-bold text-[var(--accent-color)]">100% Production Tested</div>
+            </div>
+          </div>
         </div>
 
         {/* Article Body + Sidebar Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           
           {/* Main Content Column */}
-          <article className="lg:col-span-8 space-y-10">
-            {/* Structured Content */}
+          <article className="lg:col-span-8 space-y-8">
+            {/* Interactive Reader Controls Toolbar (Font Size & Zen Focus Mode) */}
+            <BlogReaderToolbar readingTimeMinutes={blog.readingTimeMinutes} />
+
+            {/* Structured Content with MacOS Window Terminal controls */}
             <BlogContentRenderer content={blog.content} />
+
+            {/* Reader Reactions & Feedback Bar */}
+            <BlogReactions slug={blog.slug} title={blog.title} />
 
             {/* Tags Footer */}
             <div className="pt-6 border-t border-slate-200 dark:border-slate-800 space-y-3">

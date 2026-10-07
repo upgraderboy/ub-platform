@@ -29,5 +29,6 @@ export const ResourceDocumentSchema = z.object({
   categoryPath: z.array(z.string()), // e.g. ['cat-btech', 'cat-btech-cs', 'cat-btech-cs-notes-dsa']
   tags: z.array(z.string()),
   publishedAt: z.string(),
+  fileExtension: z.enum(['pdf', 'docx', 'doc', 'txt', 'md', 'pptx']).default('pdf').optional(),
 });
 export type ResourceDocument = z.infer<typeof ResourceDocumentSchema>;

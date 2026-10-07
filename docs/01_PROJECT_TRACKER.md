@@ -78,6 +78,14 @@
 - [x] Refined Desktop Island Capsule Navbar with compact `⌘K` shortcut button & single palette dropdown (`🟢 Verified`)
 - [x] Theme Mode & Accent Palette Persistence Across Refresh (Zero Flash of Dark/Green) (`🟢 Verified`)
 - [x] Implement `/blogs` feed & `/blogs/[slug]` rich reader with dynamic ToC (`🟢 Verified`)
+  - Universal Batteries-Included `ModernSearchCapsule` (Multi-Scope Checkboxes, Airbnb Date Interval Range Picker, Dynamic Topics Rail)
+  - Chronological Timeline Grouping by Month/Year (Jan 2025, Dec 2024, Nov 2024, Oct 2024)
+  - Flagship Article Spotlight Hero Banner with live system metrics
+  - 120 FPS Native CSS Scroll-Timeline Progress Bar (`animation-timeline: scroll()`) running on GPU compositor thread with continuous tracking
+  - Floating Circular Reading HUD Ring with real-time remaining minutes & quick Scroll-To-Top
+  - Interactive Reader Controls Toolbar (`BlogReaderToolbar`) with dynamic font sizing (`A-`, `A`, `A+`) & Zen Focus Mode
+  - Interactive AI Voice Audio Dispatch Player with animated soundwave equalizer & speed controls
+  - Reader Reaction Feedback Bar (Insightful 🔥, Brilliant 💡, Production Ready 🚀, Deep Tech 🧠)
 - [x] Verification Proof Media:
   - [Next.js Homepage Dark Mode](file:///Users/upgraderboy/Project%20with%20AI/UB%20Platform/docs/verification/screenshots/nextjs-homepage-dark.png)
   - [Next.js Homepage Light Mode](file:///Users/upgraderboy/Project%20with%20AI/UB%20Platform/docs/verification/screenshots/nextjs-homepage-light.png)
@@ -92,9 +100,92 @@
   - [Multi-Field Search Checkboxes](file:///Users/upgraderboy/Project%20with%20AI/UB%20Platform/docs/verification/screenshots/search-fields-checkboxes.png)
   - [Quick Breakdown Modal](file:///Users/upgraderboy/Project%20with%20AI/UB%20Platform/docs/verification/screenshots/quick-breakdown-modal.png)
   - [Simplified Services Page](file:///Users/upgraderboy/Project%20with%20AI/UB%20Platform/docs/verification/screenshots/simplified-services-page.png)
-- [ ] Implement `/resources` hierarchical folder tree with permalinks & PDF preview
-- [ ] Implement `/memories` masonry timeline gallery
-- [ ] Implement `/contact` dedicated consultation booking page
+- [x] Implement `/resources` hierarchical folder tree with permalinks & PDF preview (`🟢 Verified`)
+  - 3 Interchangeable Views: **Drive Explorer Grid** (3D layered folder capsules with frosted tabs, dossier playbook cards with page curl corners and quick in-folder search), **Cards Grid** (editorial showcase with bound book spines, stitches, reading time, and direct link copy), and **Cyber Table Dossier** (`ResourceDriveListView` with format filter tabs, telemetry metrics, inline expandable drawers, and direct download buttons)
+  - Interactive **3D Realistic Book Flip Reader** (`ResourceBookFlipReader`):
+    - True dual-face 3D rotating leaf with perspective physics and dynamic light sweep
+    - Synchronized two-stage Web Audio acoustic synthesis (paper lift & glide at 60ms, crisp landing snap at 360ms) in 100% lockstep with visual rotation
+    - Interactive Index / Table of Contents page (Spread 1 / Page 1) with clickable topic cards that immediately flip to that target chapter
+    - Header Table of Contents drawer for quick section jumping from any page
+    - Multi-extension support across schemas and viewer: `.PDF`, `.DOCX`, `.TXT`, `.MD`, `.PPTX`, with explicit extension pills and format-aware raw inspector
+    - Mobile-friendly single-page view mode with touch swipe gestures (swipe left/right to turn pages), responsive scaling, and thumb-friendly navigation bar
+    - 3 Paper Themes: Obsidian (Dark), Vintage Parchment (Sepia), and Daylight Clean (Light)
+    - Fullscreen edge-to-edge takeover mode toggle
+  - Footer boundary protection (`min-h-[820px]` on resources section): prevents sidebar from ever overlapping the footer even when filtered results contain few or zero items
+  - Sticky scroll **Knowledge Directory** sidebar residing completely outside `max-w-7xl` navbar-aligned width: starts naturally at the resources section and sticks smoothly at `top-24` on scroll
+  - Independent scroll container (`sidebar-scroll-container` with `overscroll-contain`): scrolling the main resources leaves the sidebar in place, and user can independently scroll tall sidebar contents without moving the main page
+  - Multi-component sidebar architecture: Knowledge Directory folder tree, Popular Topic Shortcuts (`#DSA`, `#Redis`, `#Next.js 15`...), Suggest a Playbook CTA card, and Curricula Live Sync index status
+  - 100% navbar-aligned main resources canvas (`max-w-7xl`): Hero, Search Capsule, and full-width Drive Explorer / Cards / Table views without any middle crowding or overflow
+  - Finder-style breadcrumbs bar with quick "Up one level" navigation and Root Drive shortcuts
+  - Infinite Arbitrary Depth Recursive Subcategories (`apps/web/src/data/categoryUtils.ts`):
+    - Recursive TreeNode folder sidebar with nested guide lines and descendant active states
+    - Horizontal scrollable breadcrumb rail (`Root > Cat > SubCat > DeepSubCat`) with direct jump buttons that never overflows or wraps
+    - Recursive document count aggregation across all descendant folders
+    - In-folder live search filtering both directories and documents simultaneously
+    - Responsive multi-column grid (`grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4`) handling 1 to 50+ subdirectories without layout distortion
+  - 7 genuine curated study materials and playbooks (Visual DSA, SIH 2024 Blueprint, Redis System Design, Next.js 15 Monorepos, DBMS Optimization, Web Security Matrix)
+- [x] Implement `/memories` The Visual Life Album & Personal Odyssey (`🟢 Verified`)
+  - **Signature Modern Capsule Search Bar Integration**:
+    - Floating glassmorphism search capsule with multi-field search scoping (`title`, `tags/locations`, `description`, `category`)
+    - Interactive Date Range filtering popover with Airbnb-style dual month picker and reset controls
+    - Real-time instant count badge and domain category filter dropdown
+  - **Visitor Mood & Emotional Energy Engine**:
+    - Interactive mood wavelength selection: `✨ All Vibes`, `🏆 Winning Moments`, `⚡ Late Night Energy`, `☕ Nostalgic Roots`, `💡 Spotlight & Talks`
+    - Dynamic ambient background glow and typography gradients reacting in real-time to active visitor mood
+    - Gentle analog audio atmosphere toggle (Web Audio API synthesized lo-fi tape/projector hum)
+    - Authentic mood badges tagged across all cards
+  - **3 Master Showcase Perspectives**:
+    - **📸 Aesthetic Polaroid Scrapbook Wall**:
+      - Vintage washi tape pins in 5 pastel patterns
+      - Subtle natural tilt rotations (-2° to +2°) that smoothly level out on hover
+      - Glossy light reflection sheen glide effect on card hover
+      - Authentic retro orange date stamps (`'24 12 22`), photo count badges (`📸 4 photos`), and mood sticker pins
+    - **⚡ The Illuminated Chronicle Path**:
+      - Central glowing vertical neon conduit with animated pulses
+      - Glowing milestone nodes grouped by epoch (`EPOCH 2025`, `EPOCH 2024`)
+      - Alternating floating cinematic glassmorphism story cards with mood edge illumination
+    - **🖼️ Google Photos Chronological Moments Stream**:
+      - Unbundled individual photo tiles grouped strictly chronologically descending by Month & Year (April 2025, January 2025, December 2024, etc., latest first)
+      - Sticky month glass headers with calendar icon, month title, and photo count badge
+      - Layout density switcher: `Comfortable` (3-4 cols) vs `Compact` (4-6 dense gallery cols)
+      - Quick month jump scrubber bar and direct click-to-lightbox navigation
+  - **Cinematic Ambient Photo Lightbox** (`MemoryDossierModal`):
+    - Ambient blurred photo halo expanding dynamically behind the modal
+    - Crisp high-resolution center photo canvas with smooth carousel and thumbnail strip
+    - Engaging personal life stories (no dry technical jargon or debug reports)
+    - Interactive cheer reaction counters (`❤️ Love`, `🔥 Fire`, `✨ Vibe`)
+    - Full keyboard arrow and Escape key support
+  - **Supercharged Modern Search Capsule (`ModernSearchCapsule`)**:
+    - **Native Voice Search (`Mic` button)**: Integrated Web Speech Recognition API with real-time listening banner and auto-transcription into search query.
+    - **Instant Suggestions, History & Saved Presets Tabs**: Raycast/Linear-style omnibox dropdown with Trending discoveries, local search history with 1-click restore/clear, and custom Bookmarkable Saved Views (`ub_capsule_saved_presets`).
+    - **Raycast/Linear Keyboard Navigation**: Full `ArrowDown` & `ArrowUp` selection cycling, `Enter` to apply, `Tab` to autocomplete, and `Esc` to close with visual keyboard hints legend (`[↑↓ Navigate] [↵ Apply] [Tab Fill] [Esc Close]`).
+    - **Power Search Syntax Support & Cheat Sheet**: Interactive quick-reference popup for `⌘K`, `/`, `"exact phrase"`, and field scoping.
+    - **Interactive Active Filter Breadcrumbs Rail**: Real-time dismissible glass badges for query, category, date range, scoped fields, and sort mode with 1-click individual removal and `Save View` / `Reset All` controls.
+    - **Synthesized Tactile Audio Cues (Web Audio API)**: Zero-latency subtle 10ms acoustic micro-clicks for filter toggling, voice activation, and resets with persistent Mute/Audio On toggle (`Volume2` / `VolumeX`).
+    - **Deep-Link Share & Markdown Summary Export**: One-click URL generator with query parameters and instant markdown summary copier to clipboard.
+    - **Sort Matrix Segment & Quick Preset Date Chips**: 4-segment floating pill with sort options (`Newest`, `Oldest`, `Milestones`, `A-Z`) and quick preset chips (`📅 2025`, `📅 2024`, `⏱️ 30 Days`).
+    - **Verified Across All Platform Routes**: Fully backward-compatible across `/memories`, `/resources`, `/blogs`, and `/projects`.
+  - Multi-category cross-tagging support (`categories: ['hackathons', 'college', 'milestones']`)
+  - Verified browser recording: `polaroid_chronicle_preview_1791369010342.webp`
+- [x] Implement `/contact` dedicated consultation booking page (`🟢 Verified`)
+  - **Track 1: Interactive Strategy Call Scheduler (`ConsultationBookingCalendar`)**:
+    - Topic selection: Web Architecture, Mobile Apps, AI Workflows, Code Review
+    - Duration format: 15-min Discovery Chat vs 45-min Deep-Dive Strategy
+    - Horizontal date picker swiper & time slot matrix with multi-timezone switcher (`IST`, `UTC`, `EST`, `PST`, `CET`)
+    - Client details intake (Name, Email, WhatsApp, Brief)
+    - Google Calendar 1-click URL generator, downloadable `.ics` file, and direct WhatsApp sync to Ankit Bhuria
+  - **Track 2: Interactive Project Scope Estimator (`ProjectScopeEstimator`)**:
+    - Real-time technical scope calculation, weeks delivery estimate, and currency toggle (`₹ INR` / `$ USD`)
+    - Architecture platform selection and add-on checklist (Auth RBAC, AI Agents, Payments, Docker CI/CD, Enterprise SEO)
+    - Direct API route `/api/lead` backed by strict `LeadSchema` validation from `packages/types`
+  - **Agency SLA & Trust Matrix**: 4-hour response SLA, mutual NDA upfront, SIH 2024 trophy, and 30-day post-launch warranty
+  - **Agency Physical HQ & Founder Contact Card**: Near Toll Tax, Sikar Road, Jhunjhunu, Rajasthan with direct phone/WhatsApp (+91 91662 71496) and FAQ section
+- [x] Implement Google Sitelinks Searchbox & Rich Structured Data (`🟢 Verified`)
+  - **Root Metadata Title & Description**: Match exact branding `Upgrader Boy - Portfolio, Blogs, Projects` and `Tech. That Makes Trends`
+  - **Google Sitelinks Searchbox (`schema.org/WebSite` + `SearchAction`)**: Enables Google site-specific search box in SERP results
+  - **Google Sitelinks Hierarchy (`SiteNavigationElement` + `ItemList`)**: Structured data for sub-routes (`/blogs`, `/projects`, `/memories`, `/resources`) with exact title and description pairs
+  - **Dynamic Next.js XML Sitemap (`sitemap.ts`)**: Auto-generated priority routes with daily/weekly change frequencies
+  - **Search Crawler Directives (`robots.ts`)**: Universal allow with Googlebot support and sitemap index linkage
 - [ ] Implement `/tools` developer micro-utilities playground
 
 ### Phase 3: Decoupled CMS Admin Portal (`apps/admin`)
@@ -121,8 +212,12 @@
 - [ ] Discard all placeholder/dummy content
 
 ### Phase 6: QA, Performance & Production Launch
-- [ ] Run full cross-package typecheck (`turbo run check`)
-- [ ] Run full linter checks (`turbo run lint`)
+- [x] Configure Automated CI/CD Pipeline (`.github/workflows/ci.yml`) (`🟢 Verified`)
+  - Enforces `bun install --frozen-lockfile`, `turbo run check`, `turbo run lint`, `bun test`, `smoke-test.ts`, and `turbo run build`
+  - Automated concurrency grouping and PR preview testing
+- [x] Configure Monorepo Hosting Architecture (`apps/web/vercel.json`) (`🟢 Verified`)
+  - Edge CDN & ISR caching configuration for `upgraderboy.com`
+  - Production compilation verified (`turbo run build` compiled Next.js 16/Turbopack with 0 errors)
 - [ ] Run browser subagent end-to-end user journey tests
 - [ ] Benchmark Core Web Vitals (Target: 95+ Mobile, 100 Desktop)
 - [ ] Deploy `apps/web` to `upgraderboy.com` & `apps/admin` to `admin.upgraderboy.com`

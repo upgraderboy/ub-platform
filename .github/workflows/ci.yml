@@ -1,0 +1,48 @@
+name: UB Platform CI / CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Monorepo Quality & Verification Gates
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+
+      - name: Setup Bun Runtime
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Setup Node.js Engine
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Monorepo Dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Typecheck (turbo run check)
+        run: bun x turbo run check
+
+      - name: Lint (turbo run lint)
+        run: bun x turbo run lint
+
+      - name: Run Unit Tests (bun test)
+        run: bun test
+
+      - name: Run Schema Smoke Tests
+        run: bun run scripts/smoke-test.ts
+
+      - name: Production Build (turbo run build)
+        run: bun x turbo run build

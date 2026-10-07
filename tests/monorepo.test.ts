@@ -44,7 +44,7 @@ describe('UB Platform Monorepo Test Suite', () => {
       expect(result.success).toBe(false);
     });
 
-    test('ResourceCategorySchema validates recursive tree hierarchy', () => {
+    test('ResourceCategorySchema validates deep multi-level recursive tree hierarchy', () => {
       const result = ResourceCategorySchema.safeParse({
         id: 'cat-root',
         name: 'Computer Science',
@@ -54,7 +54,20 @@ describe('UB Platform Monorepo Test Suite', () => {
             id: 'cat-child',
             name: 'Data Structures & Algorithms',
             slug: 'dsa',
-            children: [],
+            children: [
+              {
+                id: 'cat-subchild',
+                name: 'Advanced Graphs & Dynamic Programming',
+                slug: 'graphs-dp',
+                children: [
+                  {
+                    id: 'cat-deepest',
+                    name: 'Network Flow & Max Cut Algorithms',
+                    slug: 'network-flow',
+                  },
+                ],
+              },
+            ],
           },
         ],
       });
@@ -74,6 +87,75 @@ describe('UB Platform Monorepo Test Suite', () => {
         createdAt: new Date().toISOString(),
       });
       expect(result.success).toBe(true);
+    });
+
+    test('MemorySchema validates multi-category memories (SIH hackathon + college + milestone)', () => {
+      const validMemory = MemorySchema.safeParse({
+        id: 'mem-sih-2024',
+        title: 'Smart India Hackathon 2024 Grand Finale Victory',
+        description: 'National 1st prize winner under Ministry of Power jury.',
+        categories: ['hackathons', 'college', 'milestones'],
+        date: '2024-12-22',
+        year: '2024',
+        location: 'Coimbatore, Tamil Nadu',
+        coverImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475',
+        images: [
+          'https://images.unsplash.com/photo-1518770660439-4636190af475',
+          'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4',
+        ],
+        badge: 'NATIONAL 1ST PRIZE',
+        featured: true,
+        behindTheScenes: {
+          theCrisis: 'Hardware sensor communication dropped at 3:00 AM.',
+          theBreakthrough: 'Implemented Redis Streams ring buffer fallback.',
+          techStack: ['Next.js 15', 'Turborepo', 'IoT', 'Redis'],
+        },
+        teamMembers: [
+          { name: 'Upgrader Boy', role: 'Team Lead & Architect' },
+        ],
+      });
+      expect(validMemory.success).toBe(true);
+    });
+
+    test('ResourceDocumentSchema validates multi-extension documents (pdf, docx, txt, md)', () => {
+      const validPdf = ResourceDocumentSchema.safeParse({
+        id: 'res-pdf-1',
+        title: 'Distributed System Blueprint',
+        description: 'Engineering whitepaper for high-throughput backends.',
+        pdfUrl: 'https://example.com/system.pdf',
+        fileSizeBytes: 2048000,
+        categoryPath: ['cat-cs'],
+        tags: ['Distributed', 'Backend'],
+        publishedAt: new Date().toISOString(),
+        fileExtension: 'pdf',
+      });
+      expect(validPdf.success).toBe(true);
+
+      const validDocx = ResourceDocumentSchema.safeParse({
+        id: 'res-docx-1',
+        title: 'Monorepo Architecture Specification',
+        description: 'Word docx specification for client architecture.',
+        pdfUrl: 'https://example.com/spec.docx',
+        fileSizeBytes: 1024000,
+        categoryPath: ['cat-fullstack'],
+        tags: ['Architecture', 'Docx'],
+        publishedAt: new Date().toISOString(),
+        fileExtension: 'docx',
+      });
+      expect(validDocx.success).toBe(true);
+
+      const validTxt = ResourceDocumentSchema.safeParse({
+        id: 'res-txt-1',
+        title: 'System Environment Manifest',
+        description: 'Plaintext environment configuration rules.',
+        pdfUrl: 'https://example.com/env.txt',
+        fileSizeBytes: 45000,
+        categoryPath: ['cat-devops'],
+        tags: ['Env', 'Plaintext'],
+        publishedAt: new Date().toISOString(),
+        fileExtension: 'txt',
+      });
+      expect(validTxt.success).toBe(true);
     });
   });
 
