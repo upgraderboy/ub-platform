@@ -97,9 +97,10 @@ export function HeroSection() {
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <a
-                href="https://www.upgraderboy.com/assets/UB-Resume.pdf"
+                href="/assets/UB-Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
+                download="Ankit_Bhuria_Resume.pdf"
                 className="w-full sm:w-auto px-6 py-3.5 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-100 font-semibold rounded-xl hover:border-[var(--accent-color)] hover:text-[var(--accent-color)] transition-all text-center flex items-center justify-center space-x-2 text-sm shadow-sm"
               >
                 <FileDown className="w-4 h-4 text-[var(--accent-color)]" />
@@ -174,13 +175,12 @@ export function HeroSection() {
                 {/* Portrait Photo */}
                 <div className="relative h-[360px] sm:h-[400px] w-full overflow-hidden bg-slate-900">
                   <Image
-                    src="https://www.upgraderboy.com/assets/Ankit%20Bhuria.jpeg"
+                    src="/assets/Ankit%20Bhuria.jpeg"
                     alt="Ankit Bhuria - Founder & Full-Stack Developer at Upgrader Boy"
                     fill
                     sizes="(max-width: 768px) 100vw, 400px"
                     className="object-cover object-top hover:scale-105 transition-transform duration-500"
                     priority
-                    unoptimized
                   />
                   {/* Subtle bottom gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-85" />

@@ -206,7 +206,10 @@
 - [ ] Implement push notifications infrastructure
 
 ### Phase 5: Content Migration & Quality Seeding
-- [ ] Migrate genuine assets (DSA Notes, DBMS Notes, Resume PDF)
+- [x] Migrate genuine assets (DSA Notes, DBMS Notes, Resume PDF, Founder Portrait) (`🟢 Verified`)
+  - Curated and bundled into `apps/web/public/assets/`: `Ankit Bhuria.jpeg`, `ankit-bhuria.jpeg`, `UB-Resume.pdf`, `Bhuria.png`, `UB.png`, `AB.png`, `upgraderboy_dark.svg`
+  - Fixed hero section portrait rendering and direct download resume button linking locally and on production domain
+  - Verified HTTP 200 image and PDF serving via Next.js
 - [ ] Migrate and elevate authentic milestone memories (SIH Hackathon, MERN Meetup)
 - [ ] Migrate and elevate technical blogs with professional copywriting
 - [ ] Discard all placeholder/dummy content
