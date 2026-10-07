@@ -206,9 +206,13 @@
 - [ ] Implement push notifications infrastructure
 
 ### Phase 5: Content Migration & Quality Seeding
-- [x] Migrate genuine assets (DSA Notes, DBMS Notes, Resume PDF, Founder Portrait) (`🟢 Verified`)
-  - Curated and bundled into `apps/web/public/assets/`: `Ankit Bhuria.jpeg`, `ankit-bhuria.jpeg`, `UB-Resume.pdf`, `Bhuria.png`, `UB.png`, `AB.png`, `upgraderboy_dark.svg`
-  - Fixed hero section portrait rendering and direct download resume button linking locally and on production domain
+- [x] Migrate genuine assets & 3D Avatar Card (`🟢 Verified`)
+  - Curated and bundled into `apps/web/public/assets/`: `upgraderboy-3d-avatar.jpg`, `upgraderboy-cyber-badge.png`, `Ankit Bhuria.jpeg`, `ankit-bhuria.jpeg`, `UB-Resume.pdf`, `Bhuria.png`, `UB.png`, `AB.png`, `upgraderboy_dark.svg`
+  - Created interactive `HeroAvatarCard.tsx`:
+    - 3-Way Mode Switcher: `⚡ 3D Avatar` (Pixar/Unreal 3D cyber developer persona), `📸 Real Life` (Ankit Bhuria portrait), and `🛡️ Brand Emblem` (`@upgraderboy` monogram)
+    - 3D mouse parallax tilt physics (`rotateX`, `rotateY`, dynamic radial glare follower)
+    - Synthesized Web Audio tactile click feedback (`playCyberBlip`)
+    - Glassmorphic milestone badges (`SIH Winner 2024`, `DEV MODE: ON`, `Learn In Public 🇮🇳`)
   - Verified HTTP 200 image and PDF serving via Next.js
 - [ ] Migrate and elevate authentic milestone memories (SIH Hackathon, MERN Meetup)
 - [ ] Migrate and elevate technical blogs with professional copywriting

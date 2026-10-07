@@ -1,18 +1,14 @@
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import {
   ArrowRight,
   FileDown,
   Terminal as TerminalIcon,
-  Trophy,
-  GitBranch,
-  ShieldCheck,
   Database,
   Cloud,
   Layers,
 } from 'lucide-react';
-import { LinkedinIcon, GithubIcon } from './SocialIcons';
+import { HeroAvatarCard } from './HeroAvatarCard';
 
 export function HeroSection() {
   return (
@@ -133,109 +129,11 @@ export function HeroSection() {
 
           </div>
 
-          {/* Right Column: Visual Composition with Ankit's Portrait */}
+          {/* Right Column: Interactive 3D Avatar Card */}
           <div className="lg:col-span-5 relative flex items-center justify-center">
-            
             {/* Ambient Glow Halo */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-[var(--accent-color)]/20 via-blue-500/10 to-purple-500/10 rounded-3xl blur-2xl -z-10 transform scale-95" />
-
-            {/* Container Frame */}
-            <div className="relative w-full max-w-md mx-auto">
-              
-              {/* Top-Left Floating Badge: SIH Winner */}
-              <div className="absolute -top-6 -left-4 sm:-left-6 z-20 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200 dark:border-slate-700 px-4 py-2.5 rounded-2xl shadow-xl flex items-center space-x-3 animate-float">
-                <div className="w-9 h-9 rounded-xl bg-amber-400/20 text-amber-500 flex items-center justify-center text-lg">
-                  <Trophy className="w-5 h-5 text-amber-500" />
-                </div>
-                <div>
-                  <span className="block text-[11px] font-mono text-slate-400 uppercase tracking-wider">Achievement</span>
-                  <span className="text-xs font-bold text-slate-900 dark:text-white">SIH Winner 2024</span>
-                </div>
-              </div>
-
-              {/* Portrait Frame */}
-              <div className="relative rounded-3xl overflow-hidden bg-gradient-to-b from-slate-200 to-slate-300 dark:from-slate-800 dark:to-slate-950 p-1 border-2 border-slate-200 dark:border-slate-700 glow-box shadow-2xl transition-all">
-                
-                {/* Header bar */}
-                <div className="bg-slate-100 dark:bg-slate-900 px-4 py-2.5 flex items-center justify-between border-b border-slate-200 dark:border-slate-800">
-                  <div className="flex items-center space-x-2">
-                    <span className="w-3 h-3 rounded-full bg-red-500 inline-block" />
-                    <span className="w-3 h-3 rounded-full bg-yellow-500 inline-block" />
-                    <span className="w-3 h-3 rounded-full bg-green-500 inline-block" />
-                  </div>
-                  <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 flex items-center space-x-1">
-                    <ShieldCheck className="w-3.5 h-3.5 text-[var(--accent-color)]" />
-                    <span>ankit_bhuria.dev</span>
-                  </span>
-                  <span className="text-[10px] font-mono text-[var(--accent-color)] bg-[var(--accent-color)]/10 px-2 py-0.5 rounded">
-                    Active
-                  </span>
-                </div>
-
-                {/* Portrait Photo */}
-                <div className="relative h-[360px] sm:h-[400px] w-full overflow-hidden bg-slate-900">
-                  <Image
-                    src="/assets/Ankit%20Bhuria.jpeg"
-                    alt="Ankit Bhuria - Founder & Full-Stack Developer at Upgrader Boy"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 400px"
-                    className="object-cover object-top hover:scale-105 transition-transform duration-500"
-                    priority
-                  />
-                  {/* Subtle bottom gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-85" />
-                  
-                  {/* Details Card Overlay */}
-                  <div className="absolute bottom-4 left-4 right-4 bg-slate-900/85 backdrop-blur-md border border-slate-700 p-3 rounded-xl text-white">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <h4 className="font-bold text-sm text-white">Ankit Bhuria</h4>
-                        <p className="text-xs text-[var(--accent-color)] font-mono">Lead Architect & Agency Founder</p>
-                      </div>
-                      <div className="flex space-x-2">
-                        <a
-                          href="https://linkedin.com/in/upgraderboy/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-7 h-7 rounded-lg bg-slate-800 flex items-center justify-center text-slate-300 hover:text-[var(--accent-color)] hover:bg-slate-700 transition-colors"
-                          aria-label="LinkedIn Profile"
-                        >
-                          <LinkedinIcon className="w-3.5 h-3.5" />
-                        </a>
-                        <a
-                          href="https://github.com/upgraderboy"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-7 h-7 rounded-lg bg-slate-800 flex items-center justify-center text-slate-300 hover:text-[var(--accent-color)] hover:bg-slate-700 transition-colors"
-                          aria-label="GitHub Profile"
-                        >
-                          <GithubIcon className="w-3.5 h-3.5" />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-              {/* Bottom-Right Floating Glass Badge */}
-              <div className="absolute -bottom-6 -right-4 sm:-right-6 z-20 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-2xl shadow-xl flex items-center space-x-3 animate-float-reverse">
-                <div className="w-10 h-10 rounded-xl bg-[var(--accent-color)]/20 text-[var(--accent-color)] flex items-center justify-center text-lg">
-                  <GitBranch className="w-5 h-5 text-[var(--accent-color)]" />
-                </div>
-                <div>
-                  <span className="block text-[11px] font-mono text-slate-400 uppercase tracking-wider">Mission</span>
-                  <span className="text-xs font-bold text-slate-900 dark:text-white">Learn In Public 🇮🇳</span>
-                </div>
-              </div>
-
-              {/* Bottom-Left Micro Pill */}
-              <div className="absolute bottom-16 -left-6 z-20 hidden sm:flex items-center space-x-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200 dark:border-slate-700 px-3 py-1.5 rounded-xl shadow-lg text-[11px] font-mono text-slate-800 dark:text-slate-200">
-                <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                <span>MERN • Next.js • React Native</span>
-              </div>
-
-            </div>
+            <div className="absolute inset-0 bg-gradient-to-tr from-[var(--accent-color)]/25 via-blue-500/15 to-purple-500/15 rounded-3xl blur-2xl -z-10 transform scale-95" />
+            <HeroAvatarCard />
           </div>
 
         </div>
