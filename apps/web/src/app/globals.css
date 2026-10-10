@@ -27,6 +27,47 @@ html:not(.dark) {
   --border-color: rgba(255, 255, 255, 0.08);
 }
 
+/* Client Experience Mode: Inspired by original ub-portfolio-26 midnight navy aesthetic */
+html[data-experience="client"].dark,
+html[data-experience="client"] .dark {
+  --bg-primary: #0e1630;
+  --bg-card: #171F38;
+}
+
+html[data-experience="client"] body {
+  font-family: var(--font-poppins), var(--font-inter), system-ui, sans-serif;
+}
+
+html[data-experience="client"].dark body,
+html[data-experience="client"] body.dark,
+html[data-experience="client"].dark .experience-bg,
+html[data-experience="client"] .dark .experience-bg {
+  background-color: #0e1630;
+}
+
+html[data-experience="client"].dark .experience-card,
+html[data-experience="client"] .dark .experience-card {
+  background-color: #171F38;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+html[data-experience="client"].dark .dark\:bg-slate-800,
+html[data-experience="client"].dark .dark\:bg-slate-800\/50,
+html[data-experience="client"].dark .dark\:bg-slate-800\/60,
+html[data-experience="client"].dark .dark\:bg-slate-800\/80,
+html[data-experience="client"].dark .dark\:bg-slate-800\/90 {
+  background-color: #171F38;
+}
+
+html[data-experience="client"].dark .dark\:bg-slate-900,
+html[data-experience="client"].dark .dark\:bg-slate-900\/80,
+html[data-experience="client"].dark .dark\:bg-slate-900\/90,
+html[data-experience="client"].dark .dark\:bg-\[\#0B0F19\],
+html[data-experience="client"].dark .dark\:bg-\[\#0B0F19\]\/80,
+html[data-experience="client"].dark .dark\:bg-\[\#0B0F19\]\/95 {
+  background-color: #0e1630;
+}
+
 body {
   transition: background-color 0.3s ease, color 0.3s ease;
   font-family: var(--font-inter), system-ui, sans-serif;

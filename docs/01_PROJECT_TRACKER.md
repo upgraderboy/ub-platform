@@ -186,6 +186,12 @@
   - **Google Sitelinks Hierarchy (`SiteNavigationElement` + `ItemList`)**: Structured data for sub-routes (`/blogs`, `/projects`, `/memories`, `/resources`) with exact title and description pairs
   - **Dynamic Next.js XML Sitemap (`sitemap.ts`)**: Auto-generated priority routes with daily/weekly change frequencies
   - **Search Crawler Directives (`robots.ts`)**: Universal allow with Googlebot support and sitemap index linkage
+- [x] Implement Dual Experience Mode Switcher (`💼 Client Mode` ⟷ `⚡ Developer Mode`) (`🟢 Verified`):
+  - **Client Mode**: Welcoming human-first agency aesthetic inspired by original `ub-portfolio-26` with midnight navy `#0e1630` background, rich `#171F38` elevated cards, fresh emerald green `#01C369` accents, friendly **Poppins** typography, and waving hand greeting (`Hi, I'm Ankit Bhuria 👋`).
+  - **Developer Mode**: Cyberpunk developer showcase with interactive Upgrader Shell CLI terminal, 3D avatar tilt card, monospaced tech telemetry, and system schemas.
+  - **Zero-Flash State Sync**: Reactive `useExperienceMode` hook backed by `useSyncExternalStore` and `<head>` attribute initialization (`data-experience="client" | "developer"`).
+  - **Responsive Switcher Pills**: Integrated into Desktop Navbar and Mobile Drawer menu with 1-click smooth transition.
+  - **Section Transformation**: Dynamic Hero rendering and `TerminalSection` transformation into an interactive Agency Engineering Process roadmap in Client Mode.
 - [ ] Implement `/tools` developer micro-utilities playground
 
 ### Phase 3: Decoupled CMS Admin Portal (`apps/admin`) & Supabase Auth

@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import {
@@ -9,8 +11,16 @@ import {
   Layers,
 } from 'lucide-react';
 import { HeroAvatarCard } from './HeroAvatarCard';
+import { ClientHeroSection } from './ClientHeroSection';
+import { useExperienceMode } from '@/hooks/useExperienceMode';
 
 export function HeroSection() {
+  const { mode } = useExperienceMode();
+
+  if (mode === 'client') {
+    return <ClientHeroSection />;
+  }
+
   return (
     <section id="home" className="relative pt-28 pb-16 md:pt-40 md:pb-28 overflow-hidden bg-grid-pattern">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

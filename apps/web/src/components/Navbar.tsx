@@ -3,7 +3,8 @@
 import React, { useState, useEffect, useSyncExternalStore, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Moon, Sun, Menu, X, ArrowRight, Terminal, Search, Palette, Check, Sparkles, User, LogOut, Bookmark, ShieldCheck } from 'lucide-react';
+import { Moon, Sun, Menu, X, ArrowRight, Terminal, Search, Palette, Check, Sparkles, User, LogOut, Bookmark, ShieldCheck, Briefcase, Code2 } from 'lucide-react';
+import { useExperienceMode } from '@/hooks/useExperienceMode';
 
 interface AccentTheme {
   name: string;
@@ -102,6 +103,7 @@ export function Navbar() {
   const currentTheme = useSyncExternalStore(subscribeStorage, getThemeSnapshot, getServerThemeSnapshot);
   const activeColor = useSyncExternalStore(subscribeStorage, getAccentSnapshot, getServerAccentSnapshot);
   const currentUser = useSyncExternalStore(subscribeAuth, getUserSnapshot, getServerUserSnapshot);
+  const { mode: experienceMode, setExperienceMode } = useExperienceMode();
   const isDark = currentTheme === 'dark';
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [paletteMenuOpen, setPaletteMenuOpen] = useState(false);
@@ -246,6 +248,34 @@ export function Navbar() {
               ⌘K
             </span>
           </button>
+
+          {/* Experience Mode Switcher: Client View vs Developer View */}
+          <div className="hidden sm:flex items-center p-0.5 rounded-xl bg-slate-100 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 shadow-2xs">
+            <button
+              onClick={() => setExperienceMode('client')}
+              className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                experienceMode === 'client'
+                  ? 'bg-white dark:bg-[#171F38] text-[var(--accent-color)] shadow-xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+              title="Client View: Clean, welcoming agency portfolio"
+            >
+              <Briefcase className="w-3.5 h-3.5" />
+              <span>Client</span>
+            </button>
+            <button
+              onClick={() => setExperienceMode('developer')}
+              className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                experienceMode === 'developer'
+                  ? 'bg-white dark:bg-slate-900 text-[var(--accent-color)] shadow-xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+              title="Developer View: Interactive terminal & cyber telemetry"
+            >
+              <Code2 className="w-3.5 h-3.5" />
+              <span>Dev</span>
+            </button>
+          </div>
 
           {/* Single Elegant Color Palette Dropdown Button (Hidden on tiny <640px screens where it lives in drawer) */}
           <div className="relative hidden sm:block" ref={paletteRef}>
@@ -461,6 +491,35 @@ export function Navbar() {
                 Sign In
               </button>
             )}
+          </div>
+
+          {/* Mobile Experience Switcher Pill */}
+          <div className="p-2.5 rounded-2xl bg-slate-100/90 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 flex items-center justify-between">
+            <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center space-x-1.5">
+              <span>View Mode:</span>
+            </span>
+            <div className="flex items-center space-x-1">
+              <button
+                onClick={() => setExperienceMode('client')}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  experienceMode === 'client'
+                    ? 'bg-[var(--accent-color)] text-slate-950 shadow-sm'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                }`}
+              >
+                💼 Client
+              </button>
+              <button
+                onClick={() => setExperienceMode('developer')}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  experienceMode === 'developer'
+                    ? 'bg-[var(--accent-color)] text-slate-950 shadow-sm'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                }`}
+              >
+                ⚡ Dev
+              </button>
+            </div>
           </div>
 
           {/* Mobile Command Palette Trigger Button */}

@@ -223,6 +223,8 @@ export default function RootLayout({
                   if (border) {
                     document.documentElement.style.setProperty('--accent-border', border);
                   }
+                  var exp = localStorage.getItem('ub-experience-mode') || 'client';
+                  document.documentElement.setAttribute('data-experience', exp);
                 } catch (e) {}
               })();
             `,
