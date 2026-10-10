@@ -57,6 +57,7 @@ export const metadata: Metadata = {
 
 import Script from 'next/script';
 import { CommandPalette } from '../components/CommandPalette';
+import { AuthModal } from '../components/AuthModal';
 
 // 1. Google Sitelinks Searchbox Structured Data
 const sitelinksSearchboxJsonLd = {
@@ -230,6 +231,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col font-sans bg-slate-50 dark:bg-[#0B0F19] text-slate-800 dark:text-slate-100 antialiased selection:bg-[var(--accent-color)] selection:text-slate-900">
         <CommandPalette />
+        <AuthModal />
         {children}
       </body>
     </html>

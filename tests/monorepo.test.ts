@@ -7,6 +7,9 @@ import {
   MemorySchema,
   LeadSchema,
   TerminalCommandSchema,
+  UserProfileSchema,
+  AuthLoginPayloadSchema,
+  AuthSignupPayloadSchema,
 } from '../packages/types/src';
 import { colors, accents, typography } from '../packages/ui/src/tokens';
 
@@ -156,6 +159,62 @@ describe('UB Platform Monorepo Test Suite', () => {
         fileExtension: 'txt',
       });
       expect(validTxt.success).toBe(true);
+    });
+
+    test('UserProfileSchema validates authentic user and admin profiles', () => {
+      const validAdmin = UserProfileSchema.safeParse({
+        id: 'usr-admin-1',
+        username: 'upgraderboy',
+        fullName: 'Ankit Bhuria',
+        email: 'ankit@upgraderboy.com',
+        phone: '+919166271496',
+        avatarUrl: 'https://upgraderboy.com/assets/Ankit%20Bhuria.jpeg',
+        role: 'admin',
+        createdAt: new Date().toISOString(),
+      });
+      expect(validAdmin.success).toBe(true);
+
+      const validUser = UserProfileSchema.safeParse({
+        id: 'usr-student-42',
+        username: 'coder_dev',
+        fullName: 'Rahul Sharma',
+        email: 'rahul@example.com',
+        role: 'user',
+        createdAt: new Date().toISOString(),
+      });
+      expect(validUser.success).toBe(true);
+
+      const invalidUsername = UserProfileSchema.safeParse({
+        id: 'usr-bad',
+        username: 'in valid spaces!',
+        fullName: 'Bad User',
+        email: 'bad@example.com',
+        createdAt: new Date().toISOString(),
+      });
+      expect(invalidUsername.success).toBe(false);
+    });
+
+    test('AuthLoginPayloadSchema and AuthSignupPayloadSchema validate credentials', () => {
+      const validEmailLogin = AuthLoginPayloadSchema.safeParse({
+        identifier: 'ankit@upgraderboy.com',
+        password: 'SecurePassword123!',
+      });
+      expect(validEmailLogin.success).toBe(true);
+
+      const validUsernameLogin = AuthLoginPayloadSchema.safeParse({
+        identifier: 'upgraderboy',
+        password: 'AdminPassword99!',
+      });
+      expect(validUsernameLogin.success).toBe(true);
+
+      const validSignup = AuthSignupPayloadSchema.safeParse({
+        username: 'upgrader_learner',
+        fullName: 'Student Learner',
+        email: 'student@example.com',
+        password: 'StrongPassword456',
+        phone: '+919876543210',
+      });
+      expect(validSignup.success).toBe(true);
     });
   });
 

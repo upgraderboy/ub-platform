@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useSyncExternalStore, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Moon, Sun, Menu, X, ArrowRight, Terminal, Search, Palette, Check, Sparkles } from 'lucide-react';
+import { Moon, Sun, Menu, X, ArrowRight, Terminal, Search, Palette, Check, Sparkles, User, LogOut, Bookmark, ShieldCheck } from 'lucide-react';
 
 interface AccentTheme {
   name: string;
@@ -61,14 +61,53 @@ function applyAccent(color: string, glow: string, border: string) {
   window.dispatchEvent(new Event('storage'));
 }
 
+interface CurrentUserData {
+  email?: string;
+  username?: string;
+  fullName?: string;
+}
+
+function subscribeAuth(callback: () => void) {
+  window.addEventListener('auth-state-changed', callback);
+  window.addEventListener('storage', callback);
+  return () => {
+    window.removeEventListener('auth-state-changed', callback);
+    window.removeEventListener('storage', callback);
+  };
+}
+
+let cachedUserSnapshotRaw: string | null = null;
+let cachedUserData: CurrentUserData | null = null;
+
+function getUserSnapshot(): CurrentUserData | null {
+  try {
+    const raw = localStorage.getItem('ub_user_session');
+    if (raw === cachedUserSnapshotRaw) {
+      return cachedUserData;
+    }
+    cachedUserSnapshotRaw = raw;
+    cachedUserData = raw ? JSON.parse(raw) : null;
+    return cachedUserData;
+  } catch {
+    return null;
+  }
+}
+
+function getServerUserSnapshot(): CurrentUserData | null {
+  return null;
+}
+
 export function Navbar() {
   const pathname = usePathname();
   const currentTheme = useSyncExternalStore(subscribeStorage, getThemeSnapshot, getServerThemeSnapshot);
   const activeColor = useSyncExternalStore(subscribeStorage, getAccentSnapshot, getServerAccentSnapshot);
+  const currentUser = useSyncExternalStore(subscribeAuth, getUserSnapshot, getServerUserSnapshot);
   const isDark = currentTheme === 'dark';
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [paletteMenuOpen, setPaletteMenuOpen] = useState(false);
   const paletteRef = useRef<HTMLDivElement>(null);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const userMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isDark) {
@@ -102,6 +141,19 @@ export function Navbar() {
     }
   }, [paletteMenuOpen]);
 
+  // Close user menu on click outside
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
+        setUserMenuOpen(false);
+      }
+    }
+    if (userMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [userMenuOpen]);
+
   const toggleTheme = () => {
     const nextTheme = isDark ? 'light' : 'dark';
     localStorage.setItem('ub-theme-mode', nextTheme);
@@ -116,6 +168,17 @@ export function Navbar() {
   const handleSelectAccent = (preset: AccentTheme) => {
     applyAccent(preset.color, preset.glow, preset.border);
     setPaletteMenuOpen(false);
+  };
+
+  const handleSignOut = () => {
+    localStorage.removeItem('ub_user_session');
+    setUserMenuOpen(false);
+    window.dispatchEvent(new CustomEvent('auth-state-changed', { detail: null }));
+    window.dispatchEvent(new Event('storage'));
+  };
+
+  const openAuthModal = (mode: 'signin' | 'signup') => {
+    window.dispatchEvent(new CustomEvent('open-auth-modal', { detail: { mode } }));
   };
 
   return (
@@ -250,6 +313,84 @@ export function Navbar() {
             )}
           </button>
 
+          {/* User Account / Profile Button */}
+          <div className="relative" ref={userMenuRef}>
+            {currentUser ? (
+              <button
+                onClick={() => setUserMenuOpen(!userMenuOpen)}
+                className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 hover:border-[var(--accent-color)] text-slate-800 dark:text-slate-200 transition-all cursor-pointer"
+                aria-label="User account menu"
+              >
+                <div className="w-5 h-5 rounded-full bg-[var(--accent-color)]/20 border border-[var(--accent-color)]/40 text-[var(--accent-color)] flex items-center justify-center text-[10px] font-bold">
+                  {(currentUser.fullName || currentUser.username || 'U').charAt(0).toUpperCase()}
+                </div>
+                <span className="hidden md:inline text-xs font-semibold max-w-[80px] truncate">
+                  {currentUser.username || currentUser.fullName?.split(' ')[0] || 'Account'}
+                </span>
+              </button>
+            ) : (
+              <button
+                onClick={() => openAuthModal('signin')}
+                className="flex items-center space-x-1 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl bg-slate-100 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 hover:border-[var(--accent-color)] text-slate-700 dark:text-slate-300 hover:text-[var(--accent-color)] transition-all text-xs font-semibold cursor-pointer"
+                aria-label="Sign In"
+              >
+                <User className="w-3.5 h-3.5" />
+                <span className="hidden md:inline">Sign In</span>
+              </button>
+            )}
+
+            {/* User Dropdown Menu */}
+            {userMenuOpen && currentUser && (
+              <div className="absolute right-0 top-full mt-2 w-56 rounded-2xl bg-white/95 dark:bg-[#0B0F19]/95 backdrop-blur-2xl border border-slate-200 dark:border-slate-800 shadow-2xl p-2 z-50 animate-slide-down">
+                <div className="px-3 py-2 border-b border-slate-100 dark:border-slate-800/80">
+                  <p className="text-xs font-bold text-slate-900 dark:text-white truncate">
+                    {currentUser.fullName || 'Community Member'}
+                  </p>
+                  <p className="text-[11px] font-mono text-slate-500 truncate">
+                    {currentUser.email || `@${currentUser.username}`}
+                  </p>
+                  {currentUser.email?.includes('upgraderboy') && (
+                    <span className="inline-flex items-center space-x-1 mt-1 text-[10px] font-mono font-bold text-[var(--accent-color)] bg-[var(--accent-color)]/10 px-1.5 py-0.5 rounded-md">
+                      <ShieldCheck className="w-3 h-3" />
+                      <span>Admin Account</span>
+                    </span>
+                  )}
+                </div>
+
+                <div className="py-1">
+                  <Link
+                    href="/resources"
+                    onClick={() => setUserMenuOpen(false)}
+                    className="flex items-center space-x-2 px-3 py-2 rounded-xl text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
+                  >
+                    <Bookmark className="w-3.5 h-3.5 text-slate-400" />
+                    <span>Saved Resources</span>
+                  </Link>
+                  <a
+                    href="http://localhost:3001"
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => setUserMenuOpen(false)}
+                    className="flex items-center space-x-2 px-3 py-2 rounded-xl text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
+                  >
+                    <ShieldCheck className="w-3.5 h-3.5 text-[var(--accent-color)]" />
+                    <span>Admin Mission Control</span>
+                  </a>
+                </div>
+
+                <div className="pt-1 border-t border-slate-100 dark:border-slate-800/80">
+                  <button
+                    onClick={handleSignOut}
+                    className="w-full flex items-center space-x-2 px-3 py-2 rounded-xl text-xs font-medium text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20 transition-colors cursor-pointer"
+                  >
+                    <LogOut className="w-3.5 h-3.5" />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+
           {/* Desktop CTA Button */}
           <Link
             href="/contact"
@@ -274,6 +415,54 @@ export function Navbar() {
       {mobileMenuOpen && (
         <div className="lg:hidden bg-white/95 dark:bg-[#0B0F19]/95 backdrop-blur-2xl border-b border-slate-200 dark:border-slate-800 px-5 py-5 space-y-4 shadow-2xl animate-slide-down">
           
+          {/* Mobile User Profile / Auth State Card */}
+          <div className="p-3 rounded-2xl bg-slate-100/80 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 flex items-center justify-between">
+            {currentUser ? (
+              <div className="flex items-center space-x-2.5">
+                <div className="w-8 h-8 rounded-xl bg-[var(--accent-color)]/20 border border-[var(--accent-color)]/40 text-[var(--accent-color)] flex items-center justify-center text-xs font-bold">
+                  {(currentUser.fullName || currentUser.username || 'U').charAt(0).toUpperCase()}
+                </div>
+                <div className="overflow-hidden">
+                  <p className="text-xs font-bold text-slate-900 dark:text-white truncate">
+                    {currentUser.fullName || currentUser.username}
+                  </p>
+                  <p className="text-[10px] font-mono text-slate-500 truncate">
+                    {currentUser.email || `@${currentUser.username}`}
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div className="flex items-center space-x-2">
+                <div className="w-8 h-8 rounded-xl bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-500">
+                  <User className="w-4 h-4" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-slate-900 dark:text-white">Community Access</p>
+                  <p className="text-[10px] text-slate-500">Sign in for bookmarks & notes</p>
+                </div>
+              </div>
+            )}
+
+            {currentUser ? (
+              <button
+                onClick={handleSignOut}
+                className="px-2.5 py-1.5 rounded-lg bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 text-xs font-semibold border border-rose-200 dark:border-rose-900/40"
+              >
+                Sign Out
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  openAuthModal('signin');
+                }}
+                className="px-3 py-1.5 rounded-xl bg-[var(--accent-color)] text-slate-950 text-xs font-extrabold shadow-sm"
+              >
+                Sign In
+              </button>
+            )}
+          </div>
+
           {/* Mobile Command Palette Trigger Button */}
           <button
             onClick={() => {

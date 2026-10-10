@@ -50,7 +50,18 @@ This document records the exact technology stack, libraries, and tools chosen fo
 
 ## 5. Shared Core Packages (`packages/*`)
 
-* `packages/types`: Pure TypeScript interfaces & Zod schemas. Zero heavy dependencies.
+* `packages/types`: Pure TypeScript interfaces & Zod schemas (`auth.ts`, `projects.ts`, `leads.ts`, `resources.ts`, `memories.ts`). Zero heavy dependencies.
 * `packages/ui`: Shared design tokens (colors, gradients, typography, radii) and reusable UI primitives.
-* `packages/api`: Headless data client wrapping database queries, mutations, and error handling.
+* `packages/api`: Headless data client wrapping Supabase queries, mutations, SSR cookies, and auth singleton (`@supabase/supabase-js`, `@supabase/ssr`).
 * `packages/utils`: Pure helper functions (reading time calculator, slugifier, date formatters).
+
+---
+
+## 6. Authentication & Database Layer (Supabase)
+
+| Package | Purpose | Justification |
+| :--- | :--- | :--- |
+| **`@supabase/supabase-js`** | Database & Auth SDK | Universal client for PostgreSQL queries, mutations, auth session persistence, and real-time triggers. |
+| **`@supabase/ssr`** | Cookie-Based SSR Auth | Secure server-side cookie handling across Next.js 15 Server Components and Route Handlers. |
+| **PostgreSQL 15+ & RLS** | Relational Database Engine | Row-Level Security ensures strict multi-tenant boundaries between public user access and Ankit's admin capabilities. |
+

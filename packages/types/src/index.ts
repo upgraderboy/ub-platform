@@ -5,3 +5,4 @@ export * from './memory';
 export * from './lead';
 export * from './terminal';
 export * from './seo';
+export * from './auth';

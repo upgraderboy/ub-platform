@@ -1,0 +1,37 @@
+{
+  "name": "@ub/admin",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Decoupled CMS Admin Portal for Upgrader Boy Platform",
+  "scripts": {
+    "dev": "next dev --port 3001",
+    "build": "next build",
+    "start": "next start",
+    "check": "tsc --noEmit",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@ub/api": "workspace:*",
+    "@ub/types": "workspace:*",
+    "@ub/ui": "workspace:*",
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.117.3",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.16.0",
+    "next": "^16.3.8",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.5.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^22.10.7",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "@ub/config": "workspace:*",
+    "eslint": "^9.18.0",
+    "eslint-config-next": "16.3.8",
+    "tailwindcss": "^4",
+    "typescript": "^5.7.3"
+  }
+}

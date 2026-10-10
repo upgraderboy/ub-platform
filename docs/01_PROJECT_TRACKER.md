@@ -13,8 +13,8 @@
 | **Phase 0** | Documentation Suite & Agent Governance Setup | `docs/*`, `AGENTS.md` | 🟢 Implemented & Verified |
 | **Phase 1** | Turborepo Monorepo & Core Packages Scaffolding | `turbo.json`, `packages/{types, ui, api}` | 🟢 Implemented & Verified |
 | **Design Prototype** | Engaging Hero, Dual Mode (Dark/Light), Multi-Accent, Interactive Shell | `docs/verification/screenshots/` | 🟢 Approved & Verified |
-| **Phase 2** | Public Web Application Re-engineering | `apps/web` (Next.js 15, ISR, Edge CDN) | 🟡 In Progress |
-| **Phase 3** | Decoupled CMS Admin Portal | `apps/admin` (admin.upgraderboy.com) | ⚪ Not Started |
+| **Phase 2** | Public Web Application Re-engineering | `apps/web` (Next.js 15, ISR, Edge CDN) | 🟢 Implemented & Verified |
+| **Phase 3** | Decoupled CMS Admin Portal & Supabase Auth | `apps/admin` (admin.upgraderboy.com), Supabase Auth | 🟡 In Progress (Scaffolded & Auth Active) |
 | **Phase 4** | Cross-Platform Mobile App | `apps/mobile` (React Native / Expo) | ⚪ Not Started |
 | **Phase 5** | Data Curation, Migration & Seeding | DB Migration & Seed Scripts | ⚪ Not Started |
 | **Phase 6** | End-to-End QA, Testing & Deployment | CI/CD, Lighthouse 100/100, Verification | ⚪ Not Started |
@@ -188,10 +188,15 @@
   - **Search Crawler Directives (`robots.ts`)**: Universal allow with Googlebot support and sitemap index linkage
 - [ ] Implement `/tools` developer micro-utilities playground
 
-### Phase 3: Decoupled CMS Admin Portal (`apps/admin`)
-- [ ] Scaffold `apps/admin` (independent deployment)
-- [ ] Implement secure authentication & session management
-- [ ] Implement Dashboard overview & lead inquiry manager
+### Phase 3: Decoupled CMS Admin Portal (`apps/admin`) & Supabase Auth
+- [x] Scaffold `apps/admin` (independent deployment on `admin.upgraderboy.com` / port 3001) (`🟢 Verified: Next.js 15, Turbopack, Tailwind v4, 0 TS errors, 0 Lint warnings`)
+- [x] Implement Supabase client & SSR layer in `packages/api/src/supabase.ts` (`🟢 Verified: Singleton browser client & server client factory`)
+- [x] Author comprehensive PostgreSQL database migration schema `packages/api/supabase/schema.sql` (`🟢 Verified: profiles, leads, bookmarks, triggers, RLS`)
+- [x] Implement User & Admin Zod authentication schemas in `packages/types/src/auth.ts` (`🟢 Verified: UserProfileSchema, AuthLoginPayloadSchema, AuthSignupPayloadSchema; unit tests 10/10`)
+- [x] Implement Public User Auth Modal on `apps/web` (`AuthModal.tsx` supporting Email, Username, Phone + Password, Google OAuth) (`🟢 Verified`)
+- [x] Integrate User Profile & session state in `Navbar.tsx` using `useSyncExternalStore` (`🟢 Verified`)
+- [x] Implement Admin Login Gate (`apps/admin/src/app/login/page.tsx`) with Google OAuth & Master Admin credentials (`🟢 Verified`)
+- [x] Implement Mission Control Dashboard (`apps/admin/src/app/dashboard/page.tsx`) with real-time leads feed, pipeline metrics, and system quick-actions (`🟢 Verified`)
 - [ ] Implement Blog Post rich block editor
 - [ ] Implement Project & Case Study manager
 - [ ] Implement Visual Resource Category Tree & PDF catalog manager
