@@ -28,6 +28,15 @@ interface ModeConfig {
 
 const MODES: ModeConfig[] = [
   {
+    id: 'cyber',
+    label: 'Brand Emblem',
+    icon: <Cpu className="w-3.5 h-3.5" />,
+    src: '/assets/upgraderboy-cyber-badge.png',
+    alt: 'Upgrader Boy - Official Cyber Dev Identity & Monogram',
+    tagline: 'Tech That Makes Trends • Dev Identity',
+    accent: '#a855f7',
+  },
+  {
     id: '3d',
     label: '3D Avatar',
     icon: <Sparkles className="w-3.5 h-3.5" />,
@@ -45,19 +54,10 @@ const MODES: ModeConfig[] = [
     tagline: 'Lead Architect & Agency Founder',
     accent: '#38bdf8',
   },
-  {
-    id: 'cyber',
-    label: 'Brand Emblem',
-    icon: <Cpu className="w-3.5 h-3.5" />,
-    src: '/assets/upgraderboy-cyber-badge.png',
-    alt: 'Upgrader Boy - Official Cyber Dev Identity & Monogram',
-    tagline: 'Tech That Makes Trends • Dev Identity',
-    accent: '#a855f7',
-  },
 ];
 
 export function HeroAvatarCard() {
-  const [currentMode, setCurrentMode] = useState<AvatarMode>('3d');
+  const [currentMode, setCurrentMode] = useState<AvatarMode>('cyber');
   const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0, glareX: 50, glareY: 50 });
   const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
