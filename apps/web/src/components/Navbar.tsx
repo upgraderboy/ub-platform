@@ -31,6 +31,8 @@ const NAV_LINKS = [
   { href: '/contact', label: 'Contact' },
 ];
 
+const ADMIN_EMAILS = ['upgraderboy@gmail.com', 'ankit@upgraderboy.com'];
+
 function subscribeStorage(callback: () => void) {
   window.addEventListener('storage', callback);
   return () => window.removeEventListener('storage', callback);
@@ -67,6 +69,7 @@ interface CurrentUserData {
   email?: string;
   username?: string;
   fullName?: string;
+  role?: string;
 }
 
 function subscribeAuth(callback: () => void) {
@@ -105,6 +108,11 @@ export function Navbar() {
   const activeColor = useSyncExternalStore(subscribeStorage, getAccentSnapshot, getServerAccentSnapshot);
   const currentUser = useSyncExternalStore(subscribeAuth, getUserSnapshot, getServerUserSnapshot);
   const isDark = currentTheme === 'dark';
+  const isAdmin = Boolean(
+    currentUser &&
+      ((currentUser.email && ADMIN_EMAILS.includes(currentUser.email.toLowerCase())) ||
+        currentUser.role === 'admin'),
+  );
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [paletteMenuOpen, setPaletteMenuOpen] = useState(false);
   const paletteRef = useRef<HTMLDivElement>(null);
@@ -355,7 +363,7 @@ export function Navbar() {
                   <p className="text-[11px] font-mono text-slate-500 truncate">
                     {currentUser.email || `@${currentUser.username}`}
                   </p>
-                  {currentUser.email?.includes('upgraderboy') && (
+                  {isAdmin && (
                     <span className="inline-flex items-center space-x-1 mt-1 text-[10px] font-mono font-bold text-[var(--accent-color)] bg-[var(--accent-color)]/10 px-1.5 py-0.5 rounded-md">
                       <ShieldCheck className="w-3 h-3" />
                       <span>Admin Account</span>
@@ -372,16 +380,18 @@ export function Navbar() {
                     <Bookmark className="w-3.5 h-3.5 text-slate-400" />
                     <span>Saved Resources</span>
                   </Link>
-                  <a
-                    href="http://localhost:3001"
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={() => setUserMenuOpen(false)}
-                    className="flex items-center space-x-2 px-3 py-2 rounded-xl text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
-                  >
-                    <ShieldCheck className="w-3.5 h-3.5 text-[var(--accent-color)]" />
-                    <span>Admin Mission Control</span>
-                  </a>
+                  {isAdmin && (
+                    <a
+                      href="https://admin.upgraderboy.com"
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={() => setUserMenuOpen(false)}
+                      className="flex items-center space-x-2 px-3 py-2 rounded-xl text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors"
+                    >
+                      <ShieldCheck className="w-3.5 h-3.5 text-[var(--accent-color)]" />
+                      <span>Admin Mission Control</span>
+                    </a>
+                  )}
                 </div>
 
                 <div className="pt-1 border-t border-slate-100 dark:border-slate-800/80">

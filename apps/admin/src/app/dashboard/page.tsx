@@ -63,33 +63,59 @@ const SAMPLE_LEADS: LeadSummary[] = [
   },
 ];
 
+const AUTHORIZED_ADMIN_EMAILS = [
+  'upgraderboy@gmail.com',
+  'ankit@upgraderboy.com',
+];
+
 export default function AdminDashboardPage() {
   const router = useRouter();
   const [adminUser, setAdminUser] = useState<{ email?: string; username?: string } | null>(null);
+  const [isVerifying, setIsVerifying] = useState(true);
 
   useEffect(() => {
     async function verifyAdminAuth() {
       const supabase = getSupabaseBrowserClient();
-      if (supabase) {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) {
-          router.push('/login');
-        } else {
-          setAdminUser({ email: user.email, username: user.user_metadata?.username || 'upgraderboy' });
-        }
-      } else {
-        const localSession = localStorage.getItem('ub_admin_session');
-        if (!localSession) {
-          router.push('/login');
-        } else {
-          try {
-            const parsed = JSON.parse(localSession);
-            setAdminUser(parsed.user);
-          } catch {
-            router.push('/login');
-          }
-        }
+      if (!supabase) {
+        router.replace('/login');
+        return;
       }
+
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        router.replace('/login');
+        return;
+      }
+
+      // Strict Admin Verification
+      const isEmailAuthorized =
+        user.email &&
+        AUTHORIZED_ADMIN_EMAILS.includes(user.email.toLowerCase());
+
+      let isRoleAdmin = false;
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .maybeSingle();
+
+      if (profile?.role === 'admin') {
+        isRoleAdmin = true;
+      }
+
+      if (!isEmailAuthorized && !isRoleAdmin) {
+        // Immediately kick out unauthorized users and sign them out
+        await supabase.auth.signOut();
+        localStorage.removeItem('ub_admin_session');
+        router.replace('/login?error=unauthorized');
+        return;
+      }
+
+      setAdminUser({
+        email: user.email,
+        username: user.user_metadata?.username || 'upgraderboy',
+      });
+      setIsVerifying(false);
     }
 
     void verifyAdminAuth();
@@ -103,6 +129,15 @@ export default function AdminDashboardPage() {
     localStorage.removeItem('ub_admin_session');
     router.push('/login');
   };
+
+  if (isVerifying) {
+    return (
+      <div className="min-h-screen bg-[#070A11] flex flex-col items-center justify-center text-slate-400">
+        <div className="w-8 h-8 border-2 border-[var(--accent-color)] border-t-transparent rounded-full animate-spin mb-4" />
+        <p className="text-xs font-mono">Verifying administrative security credentials...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#070A11] text-slate-100 flex flex-col">

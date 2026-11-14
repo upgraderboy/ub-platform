@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   ShieldCheck,
   Lock,
@@ -14,13 +14,24 @@ import {
 } from 'lucide-react';
 import { getSupabaseBrowserClient } from '@ub/api';
 
+const AUTHORIZED_ADMIN_EMAILS = [
+  'upgraderboy@gmail.com',
+  'ankit@upgraderboy.com',
+];
+
 export default function AdminLoginPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const isUnauthorized = searchParams?.get('error') === 'unauthorized';
   const [identifier, setIdentifier] = useState('upgraderboy');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState(
+    isUnauthorized
+      ? 'Access Denied: You signed in with an unauthorized account. This administrative portal is strictly restricted to Ankit Bhuria (@upgraderboy).'
+      : '',
+  );
 
   const handleGoogleLogin = async () => {
     setIsLoading(true);
@@ -61,47 +72,51 @@ export default function AdminLoginPage() {
 
     try {
       const supabase = getSupabaseBrowserClient();
-
-      if (supabase) {
-        // If user typed username 'upgraderboy', map to admin email or query profile
-        const emailToUse = identifier.includes('@')
-          ? identifier
-          : `${identifier}@upgraderboy.com`;
-
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email: emailToUse,
-          password,
-        });
-
-        if (error) {
-          throw error;
-        }
-
-        // Verify admin role
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('role')
-          .eq('id', data.user.id)
-          .single();
-
-        if (profile && profile.role !== 'admin') {
-          await supabase.auth.signOut();
-          throw new Error('Access Denied: Your account does not have administrator privileges.');
-        }
-
-        router.push('/dashboard');
-      } else {
-        // Local Dev Master Passkey Fallback when Supabase keys are pending
-        if (password === 'admin' || password === 'upgraderboy' || password.length >= 6) {
-          localStorage.setItem('ub_admin_session', JSON.stringify({
-            user: { username: identifier, role: 'admin' },
-            timestamp: Date.now(),
-          }));
-          router.push('/dashboard');
-        } else {
-          throw new Error('Invalid master credentials. In local dev mode, password must be at least 6 characters.');
-        }
+      if (!supabase) {
+        throw new Error('Supabase client is not configured. Please check environment variables.');
       }
+
+      // If user typed username 'upgraderboy', map to admin email or query profile
+      const emailToUse = identifier.includes('@')
+        ? identifier
+        : `${identifier}@upgraderboy.com`;
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: emailToUse,
+        password,
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      // Strict Admin Check: Email whitelist OR profiles.role === 'admin'
+      const isEmailAuthorized =
+        data.user.email &&
+        AUTHORIZED_ADMIN_EMAILS.includes(data.user.email.toLowerCase());
+
+      let isRoleAdmin = false;
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', data.user.id)
+        .maybeSingle();
+
+      if (profile?.role === 'admin') {
+        isRoleAdmin = true;
+      }
+
+      if (!isEmailAuthorized && !isRoleAdmin) {
+        await supabase.auth.signOut();
+        throw new Error('Access Denied: This administrative console is strictly restricted to Ankit Bhuria (@upgraderboy).');
+      }
+
+      localStorage.setItem('ub_admin_session', JSON.stringify({
+        user: { email: data.user.email, username: identifier, role: 'admin' },
+        timestamp: Date.now(),
+      }));
+
+      router.push('/dashboard');
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Authentication failed';
       setErrorMessage(msg);
