@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, Suspense } from 'react';
+import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
   ShieldCheck,
@@ -144,6 +145,16 @@ function AdminLoginForm() {
         
         {/* Terminal Header Bar Badge */}
         <div className="text-center mb-8">
+          <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-slate-900/90 border border-slate-700/80 p-1 flex items-center justify-center shadow-xl shadow-[var(--accent-color)]/5">
+            <Image
+              src="/favicon.png"
+              alt="Upgrader Boy Logo"
+              width={56}
+              height={56}
+              className="w-full h-full object-contain"
+              priority
+            />
+          </div>
           <div className="inline-flex items-center space-x-2 bg-slate-900/90 border border-slate-700/80 px-4 py-1.5 rounded-full text-xs font-mono text-[var(--accent-color)] shadow-lg mb-4">
             <ShieldCheck className="w-4 h-4 text-[var(--accent-color)]" />
             <span>UB PLATFORM • CMS PORTAL</span>

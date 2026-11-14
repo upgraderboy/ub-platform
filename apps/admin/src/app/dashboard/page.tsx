@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import {
   LogOut,
@@ -146,9 +147,16 @@ export default function AdminDashboardPage() {
       <header className="bg-slate-900/80 backdrop-blur-xl border-b border-slate-800 sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <span className="w-8 h-8 rounded-xl bg-[var(--accent-color)]/20 border border-[var(--accent-color)]/40 flex items-center justify-center font-black text-sm text-[var(--accent-color)]">
-              UB
-            </span>
+            <div className="relative w-8 h-8 rounded-xl bg-slate-800/90 border border-slate-700/80 p-0.5 flex items-center justify-center overflow-hidden shadow-2xs">
+              <Image
+                src="/favicon.png"
+                alt="Upgrader Boy Logo"
+                width={32}
+                height={32}
+                className="w-full h-full object-contain"
+                priority
+              />
+            </div>
             <div>
               <div className="flex items-center space-x-1.5">
                 <span className="font-bold text-sm tracking-tight text-white">

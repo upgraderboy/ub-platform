@@ -206,10 +206,15 @@
 - [ ] Implement push notifications infrastructure
 
 ### Phase 5: Content Migration & Quality Seeding
-- [x] Migrate genuine assets & 3D Avatar Card (`🟢 Verified`)
-  - Curated and bundled into `apps/web/public/assets/`: `upgraderboy-3d-avatar.jpg`, `upgraderboy-cyber-badge.png`, `Ankit Bhuria.jpeg`, `ankit-bhuria.jpeg`, `UB-Resume.pdf`, `Bhuria.png`, `UB.png`, `AB.png`, `upgraderboy_dark.svg`
+- [x] Migrate genuine assets, Brand Emblem & Favicon System (`🟢 Verified`)
+  - Curated and bundled into `apps/web/public/assets/`: `upgraderboy-3d-avatar.jpg`, `upgraderboy-cyber-badge.png` (official Upgrader Boy mascot emblem), `Ankit Bhuria.jpeg`, `ankit-bhuria.jpeg`, `UB-Resume.pdf`, `Bhuria.png`, `UB.png`, `AB.png`, `upgraderboy_dark.svg`
+  - Upgraded universal favicon and site logo system across `apps/web` and `apps/admin`:
+    - Generated multi-resolution `favicon.ico` (16x16, 32x32, 48x48, 64x64) with smooth anti-aliased alpha transparency
+    - Generated high-res `icon.png` (512x512) and `apple-icon.png` (180x180) for mobile home screens and PWA shortcuts
+    - Integrated brand emblem logo into `Navbar.tsx` alongside typographic brand title
+    - Integrated brand emblem logo into `apps/admin` cockpit header and mission control login portal
   - Created interactive `HeroAvatarCard.tsx`:
-    - 3-Way Mode Switcher: `⚡ 3D Avatar` (Pixar/Unreal 3D cyber developer persona), `📸 Real Life` (Ankit Bhuria portrait), and `🛡️ Brand Emblem` (`@upgraderboy` monogram)
+    - 3-Way Mode Switcher: `⚡ 3D Avatar` (Pixar/Unreal 3D cyber developer persona), `📸 Real Life` (Ankit Bhuria portrait), and `🛡️ Brand Emblem` (`@upgraderboy` monogram, set as default)
     - 3D mouse parallax tilt physics (`rotateX`, `rotateY`, dynamic radial glare follower)
     - Synthesized Web Audio tactile click feedback (`playCyberBlip`)
     - Glassmorphic milestone badges (`SIH Winner 2024`, `DEV MODE: ON`, `Learn In Public 🇮🇳`)
