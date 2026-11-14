@@ -27,6 +27,7 @@ const NAV_LINKS = [
   { href: '/blogs', label: 'Blogs' },
   { href: '/resources', label: 'Resources' },
   { href: '/memories', label: 'Memories' },
+  { href: '/contact', label: 'Contact' },
 ];
 
 function subscribeStorage(callback: () => void) {
