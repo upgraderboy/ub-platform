@@ -207,11 +207,12 @@
 
 ### Phase 5: Content Migration & Quality Seeding
 - [x] Migrate genuine assets, Brand Emblem & Favicon System (`🟢 Verified`)
-  - Curated and bundled into `apps/web/public/assets/`: `upgraderboy-3d-avatar.jpg`, `upgraderboy-cyber-badge.png` (official Upgrader Boy mascot emblem), `Ankit Bhuria.jpeg`, `ankit-bhuria.jpeg`, `UB-Resume.pdf`, `Bhuria.png`, `UB.png`, `AB.png`, `upgraderboy_dark.svg`
+  - Curated and bundled into `apps/web/public/assets/`: `upgraderboy-3d-avatar.jpg`, `upgraderboy-cyber-badge.png` (official Upgrader Boy brand emblem monogram, preserved unchanged), `Ankit Bhuria.jpeg`, `ankit-bhuria.jpeg`, `UB-Resume.pdf`, `Bhuria.png`, `UB.png`, `AB.png`, `upgraderboy_dark.svg`
   - Upgraded universal favicon and site logo system across `apps/web` and `apps/admin`:
+    - Dual-mode illumination: engineered electric lavender/cyan outer rim light and subtle 3D drop shadow ensuring 100% visibility against pitch black (`#000000`), Chrome dark tab bar (`#202124`), Chrome light tab bar (`#DFE1E5`), and pure white surfaces
     - Generated multi-resolution `favicon.ico` (16x16, 32x32, 48x48, 64x64) with smooth anti-aliased alpha transparency
-    - Generated high-res `icon.png` (512x512) and `apple-icon.png` (180x180) for mobile home screens and PWA shortcuts
-    - Integrated brand emblem logo into `Navbar.tsx` alongside typographic brand title
+    - Generated high-res `icon.png` (512x512) and `apple-icon.png` (180x180) with native cyber squircle backing for iOS / mobile home screens
+    - Integrated brand emblem logo into `Navbar.tsx` inside a high-contrast dark cyber capsule that pops in both light and dark themes
     - Integrated brand emblem logo into `apps/admin` cockpit header and mission control login portal
   - Created interactive `HeroAvatarCard.tsx`:
     - 3-Way Mode Switcher: `⚡ 3D Avatar` (Pixar/Unreal 3D cyber developer persona), `📸 Real Life` (Ankit Bhuria portrait), and `🛡️ Brand Emblem` (`@upgraderboy` monogram, set as default)

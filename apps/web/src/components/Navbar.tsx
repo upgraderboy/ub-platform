@@ -202,7 +202,7 @@ export function Navbar() {
         
         {/* Left: Brand Identity */}
         <Link href="/" className="flex items-center space-x-2.5 sm:space-x-3 group shrink-0">
-          <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-slate-100 dark:bg-slate-800/90 border border-slate-300/80 dark:border-slate-700/80 p-0.5 flex items-center justify-center overflow-hidden group-hover:border-[var(--accent-color)] group-hover:scale-105 transition-all shadow-2xs">
+          <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-slate-900/90 dark:bg-slate-800/90 border border-slate-700/80 dark:border-slate-700/80 p-0.5 flex items-center justify-center overflow-hidden group-hover:border-[var(--accent-color)] group-hover:scale-105 transition-all shadow-xs">
             <Image
               src="/favicon.png"
               alt="Upgrader Boy Logo"
