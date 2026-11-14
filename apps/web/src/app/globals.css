@@ -8,16 +8,32 @@
   --accent-border: rgba(0, 255, 30, 0.4);
   --accent-soft: rgba(0, 255, 30, 0.08);
 
+  --bg-primary: #0B0F19;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --border-color: rgba(255, 255, 255, 0.08);
+}
+
+html {
+  background-color: #0B0F19;
+  color-scheme: dark;
+}
+
+html.dark {
+  background-color: #0B0F19;
+  color-scheme: dark;
+}
+
+html:not(.dark) {
   --bg-primary: #F8FAFC;
   --text-primary: #0F172A;
   --text-secondary: #475569;
   --border-color: rgba(0, 0, 0, 0.08);
-}
-
-html:not(.dark) {
   --accent-glow: rgba(0, 200, 30, 0.18);
   --accent-border: rgba(0, 200, 30, 0.35);
   --accent-soft: rgba(0, 200, 30, 0.08);
+  background-color: #F8FAFC;
+  color-scheme: light;
 }
 
 .dark {
@@ -28,7 +44,6 @@ html:not(.dark) {
 }
 
 body {
-  transition: background-color 0.3s ease, color 0.3s ease;
   font-family: var(--font-inter), system-ui, sans-serif;
 }
 

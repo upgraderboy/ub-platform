@@ -53,9 +53,13 @@ export const metadata: Metadata = {
     locale: 'en_US',
     type: 'website',
   },
+  icons: {
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
+  },
 };
 
-import Script from 'next/script';
 import { CommandPalette } from '../components/CommandPalette';
 import { AuthModal } from '../components/AuthModal';
 
@@ -173,9 +177,15 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`scroll-smooth ${inter.variable} ${poppins.variable} ${firaCode.variable}`}
+      className={`dark scroll-smooth ${inter.variable} ${poppins.variable} ${firaCode.variable}`}
     >
       <head>
+        {/* Synchronous blocking theme initializer: executes in 0ms before first DOM paint to completely prevent light flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('ub-theme-mode');var isDark=t?t==='dark':true;if(!isDark){document.documentElement.classList.remove('dark')}else{document.documentElement.classList.add('dark')}var c=localStorage.getItem('ub-accent-color')||'#00FF1E';var g=localStorage.getItem('ub-accent-glow')||'rgba(0,255,30,0.22)';var b=localStorage.getItem('ub-accent-border')||'rgba(0,255,30,0.4)';document.documentElement.style.setProperty('--accent-color',c);document.documentElement.style.setProperty('--accent-glow',g);document.documentElement.style.setProperty('--accent-border',b)}catch(e){}})();`,
+          }}
+        />
         {/* Google Sitelinks Searchbox JSON-LD */}
         <script
           type="application/ld+json"
@@ -197,39 +207,8 @@ export default function RootLayout({
             __html: JSON.stringify(organizationJsonLd),
           }}
         />
-        <Script
-          id="theme-initializer"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var theme = localStorage.getItem('ub-theme-mode');
-                  var isDark = theme ? (theme === 'dark') : true;
-                  if (isDark) {
-                    document.documentElement.classList.add('dark');
-                  } else {
-                    document.documentElement.classList.remove('dark');
-                  }
-                  var color = localStorage.getItem('ub-accent-color');
-                  var glow = localStorage.getItem('ub-accent-glow');
-                  var border = localStorage.getItem('ub-accent-border');
-                  if (color) {
-                    document.documentElement.style.setProperty('--accent-color', color);
-                  }
-                  if (glow) {
-                    document.documentElement.style.setProperty('--accent-glow', glow);
-                  }
-                  if (border) {
-                    document.documentElement.style.setProperty('--accent-border', border);
-                  }
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
       </head>
-      <body className="min-h-full flex flex-col font-sans bg-slate-50 dark:bg-[#0B0F19] text-slate-800 dark:text-slate-100 antialiased selection:bg-[var(--accent-color)] selection:text-slate-900">
+      <body className="min-h-full flex flex-col font-sans bg-[#0B0F19] text-slate-100 antialiased selection:bg-[var(--accent-color)] selection:text-slate-900">
         <CommandPalette />
         <AuthModal />
         {children}
