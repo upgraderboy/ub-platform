@@ -112,16 +112,16 @@ export function HeroSection() {
             </div>
 
             {/* Credibility Metrics Bar */}
-            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200 dark:border-slate-800">
-              <div className="text-left">
+            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200 dark:border-slate-800 max-w-2xl mx-auto lg:mx-0">
+              <div className="text-center lg:text-left">
                 <span className="block text-2xl sm:text-3xl font-heading font-black text-slate-900 dark:text-white">15+</span>
                 <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Shipped Projects</span>
               </div>
-              <div className="text-left">
+              <div className="text-center lg:text-left">
                 <span className="block text-2xl sm:text-3xl font-heading font-black text-[var(--accent-color)] glow-text">1st Prize</span>
                 <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Smart India Hackathon</span>
               </div>
-              <div className="text-left">
+              <div className="text-center lg:text-left">
                 <span className="block text-2xl sm:text-3xl font-heading font-black text-slate-900 dark:text-white">10K+</span>
                 <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Community Reach</span>
               </div>
