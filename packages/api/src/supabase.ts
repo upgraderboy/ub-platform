@@ -8,7 +8,10 @@ export function getSupabaseConfig() {
       : '';
   const supabaseAnonKey =
     typeof process !== 'undefined'
-      ? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || ''
+      ? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+        process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+        process.env.SUPABASE_ANON_KEY ||
+        ''
       : '';
 
   const isConfigured = Boolean(supabaseUrl && supabaseAnonKey);

@@ -16,13 +16,6 @@ import {
 } from 'lucide-react';
 import { getSupabaseBrowserClient } from '@ub/api';
 
-function createTempUserId(): string {
-  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
-    return `usr-${crypto.randomUUID()}`;
-  }
-  return `usr-local-${Math.floor(Math.random() * 1000000)}`;
-}
-
 export function AuthModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
@@ -54,6 +47,54 @@ export function AuthModal() {
     return () => window.removeEventListener('open-auth-modal', handleOpen);
   }, []);
 
+  // Listen to Supabase auth state changes in real time (handles Google OAuth redirects)
+  useEffect(() => {
+    const supabase = getSupabaseBrowserClient();
+    if (!supabase) return;
+
+    void supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) {
+        const metadata = session.user.user_metadata || {};
+        const userPayload = {
+          id: session.user.id,
+          email: session.user.email,
+          username: metadata.username || session.user.email?.split('@')[0] || 'user',
+          fullName: metadata.full_name || metadata.name || 'Community Member',
+          avatarUrl: metadata.avatar_url || metadata.picture,
+          role: 'user',
+        };
+        localStorage.setItem('ub_user_session', JSON.stringify(userPayload));
+        window.dispatchEvent(new CustomEvent('auth-state-changed', { detail: userPayload }));
+      }
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      if ((event === 'SIGNED_IN' || event === 'USER_UPDATED') && session?.user) {
+        const metadata = session.user.user_metadata || {};
+        const userPayload = {
+          id: session.user.id,
+          email: session.user.email,
+          username: metadata.username || session.user.email?.split('@')[0] || 'user',
+          fullName: metadata.full_name || metadata.name || 'Community Member',
+          avatarUrl: metadata.avatar_url || metadata.picture,
+          role: 'user',
+        };
+        localStorage.setItem('ub_user_session', JSON.stringify(userPayload));
+        window.dispatchEvent(new CustomEvent('auth-state-changed', { detail: userPayload }));
+        setIsOpen(false);
+      } else if (event === 'SIGNED_OUT') {
+        localStorage.removeItem('ub_user_session');
+        window.dispatchEvent(new CustomEvent('auth-state-changed', { detail: null }));
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
   const handleGoogleAuth = async () => {
     setIsLoading(true);
     setErrorMessage('');
@@ -61,26 +102,13 @@ export function AuthModal() {
     try {
       const supabase = getSupabaseBrowserClient();
       if (!supabase) {
-        // Local simulation if keys are pending in development
-        const mockUser = {
-          id: 'user-google-1',
-          email: 'developer@gmail.com',
-          fullName: 'Community Developer',
-          username: 'dev_user',
-          avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop',
-          role: 'user',
-        };
-        localStorage.setItem('ub_user_session', JSON.stringify(mockUser));
-        window.dispatchEvent(new CustomEvent('auth-state-changed', { detail: mockUser }));
-        setSuccessMessage('Signed in successfully with Google!');
-        setTimeout(() => setIsOpen(false), 800);
-        return;
+        throw new Error('Supabase client is not configured. Please check your environment variables.');
       }
 
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: window.location.href,
+          redirectTo: typeof window !== 'undefined' ? window.location.href : undefined,
         },
       });
 
@@ -101,57 +129,48 @@ export function AuthModal() {
 
     try {
       const supabase = getSupabaseBrowserClient();
+      if (!supabase) {
+        throw new Error('Authentication service unavailable. Please check your Supabase configuration.');
+      }
 
       if (mode === 'signin') {
         if (!identifier.trim() || !password.trim()) {
           throw new Error('Please enter your email, username or phone, and your password.');
         }
 
-        if (supabase) {
-          // Resolve identifier (if username, map to email)
-          const isEmail = identifier.includes('@');
-          let emailToUse = identifier;
+        // Resolve identifier (if username or phone, map to email)
+        const isEmail = identifier.includes('@');
+        let emailToUse = identifier;
 
-          if (!isEmail) {
-            const { data: profile } = await supabase
-              .from('profiles')
-              .select('email')
-              .or(`username.eq.${identifier},phone.eq.${identifier}`)
-              .single();
+        if (!isEmail) {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('email')
+            .or(`username.eq.${identifier},phone.eq.${identifier}`)
+            .maybeSingle();
 
-            if (profile?.email) {
-              emailToUse = profile.email;
-            }
+          if (profile?.email) {
+            emailToUse = profile.email;
           }
-
-          const { data, error } = await supabase.auth.signInWithPassword({
-            email: emailToUse,
-            password,
-          });
-
-          if (error) throw error;
-
-          const userPayload = {
-            id: data.user.id,
-            email: data.user.email,
-            username: data.user.user_metadata?.username || identifier,
-            fullName: data.user.user_metadata?.full_name || 'Community Member',
-            role: 'user',
-          };
-          localStorage.setItem('ub_user_session', JSON.stringify(userPayload));
-          window.dispatchEvent(new CustomEvent('auth-state-changed', { detail: userPayload }));
-        } else {
-          // Local fallback in dev mode
-          const mockUser = {
-            id: createTempUserId(),
-            email: identifier.includes('@') ? identifier : `${identifier}@community.ub`,
-            username: identifier,
-            fullName: identifier,
-            role: 'user',
-          };
-          localStorage.setItem('ub_user_session', JSON.stringify(mockUser));
-          window.dispatchEvent(new CustomEvent('auth-state-changed', { detail: mockUser }));
         }
+
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: emailToUse,
+          password,
+        });
+
+        if (error) throw error;
+
+        const metadata = data.user.user_metadata || {};
+        const userPayload = {
+          id: data.user.id,
+          email: data.user.email,
+          username: metadata.username || identifier,
+          fullName: metadata.full_name || 'Community Member',
+          role: 'user',
+        };
+        localStorage.setItem('ub_user_session', JSON.stringify(userPayload));
+        window.dispatchEvent(new CustomEvent('auth-state-changed', { detail: userPayload }));
 
         setSuccessMessage('Signed in successfully!');
         setTimeout(() => setIsOpen(false), 700);
@@ -161,23 +180,23 @@ export function AuthModal() {
           throw new Error('Please provide a valid email address.');
         }
 
-        if (supabase) {
-          const { data, error } = await supabase.auth.signUp({
-            email: identifier,
-            password,
-            options: {
-              data: {
-                username,
-                full_name: fullName,
-                phone,
-              },
+        const { data, error } = await supabase.auth.signUp({
+          email: identifier,
+          password,
+          options: {
+            data: {
+              username,
+              full_name: fullName,
+              phone,
             },
-          });
+          },
+        });
 
-          if (error) throw error;
+        if (error) throw error;
 
+        if (data.session?.user) {
           const userPayload = {
-            id: data.user?.id || createTempUserId(),
+            id: data.session.user.id,
             email: identifier,
             username,
             fullName,
@@ -185,20 +204,11 @@ export function AuthModal() {
           };
           localStorage.setItem('ub_user_session', JSON.stringify(userPayload));
           window.dispatchEvent(new CustomEvent('auth-state-changed', { detail: userPayload }));
+          setSuccessMessage('Account created successfully! Welcome to UB Platform.');
+          setTimeout(() => setIsOpen(false), 900);
         } else {
-          const mockUser = {
-            id: createTempUserId(),
-            email: identifier,
-            username,
-            fullName,
-            role: 'user',
-          };
-          localStorage.setItem('ub_user_session', JSON.stringify(mockUser));
-          window.dispatchEvent(new CustomEvent('auth-state-changed', { detail: mockUser }));
+          setSuccessMessage('Account created! Please check your email inbox to confirm your registration.');
         }
-
-        setSuccessMessage('Account created successfully! Welcome to UB Platform.');
-        setTimeout(() => setIsOpen(false), 900);
       }
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Authentication failed';

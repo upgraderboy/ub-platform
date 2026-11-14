@@ -4,6 +4,7 @@ import React, { useState, useEffect, useSyncExternalStore, useRef } from 'react'
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Moon, Sun, Menu, X, ArrowRight, Terminal, Search, Palette, Check, Sparkles, User, LogOut, Bookmark, ShieldCheck } from 'lucide-react';
+import { getSupabaseBrowserClient } from '@ub/api';
 
 interface AccentTheme {
   name: string;
@@ -172,6 +173,10 @@ export function Navbar() {
   };
 
   const handleSignOut = () => {
+    const supabase = getSupabaseBrowserClient();
+    if (supabase) {
+      void supabase.auth.signOut();
+    }
     localStorage.removeItem('ub_user_session');
     setUserMenuOpen(false);
     window.dispatchEvent(new CustomEvent('auth-state-changed', { detail: null }));

@@ -29,13 +29,7 @@ export default function AdminLoginPage() {
     try {
       const supabase = getSupabaseBrowserClient();
       if (!supabase) {
-        // Fallback for development before Supabase keys are configured in .env
-        localStorage.setItem('ub_admin_session', JSON.stringify({
-          user: { email: 'upgraderboy@gmail.com', role: 'admin' },
-          timestamp: Date.now(),
-        }));
-        router.push('/dashboard');
-        return;
+        throw new Error('Supabase client is not configured. Please check your environment variables.');
       }
 
       const { error } = await supabase.auth.signInWithOAuth({

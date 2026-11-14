@@ -188,9 +188,9 @@
 - [x] Implement Supabase client & SSR layer in `packages/api/src/supabase.ts` (`🟢 Verified: Singleton browser client & server client factory`)
 - [x] Author comprehensive PostgreSQL database migration schema `packages/api/supabase/schema.sql` (`🟢 Verified: profiles, leads, bookmarks, triggers, RLS`)
 - [x] Implement User & Admin Zod authentication schemas in `packages/types/src/auth.ts` (`🟢 Verified: UserProfileSchema, AuthLoginPayloadSchema, AuthSignupPayloadSchema; unit tests 10/10`)
-- [x] Implement Public User Auth Modal on `apps/web` (`AuthModal.tsx` supporting Email, Username, Phone + Password, Google OAuth) (`🟢 Verified`)
-- [x] Integrate User Profile & session state in `Navbar.tsx` using `useSyncExternalStore` (`🟢 Verified`)
-- [x] Implement Admin Login Gate (`apps/admin/src/app/login/page.tsx`) with Google OAuth & Master Admin credentials (`🟢 Verified`)
+- [x] Implement Public User Auth Modal on `apps/web` (`AuthModal.tsx` real Supabase Auth: Google OAuth, Email/Username/Phone + Password, zero mock fallback) (`🟢 Verified`)
+- [x] Integrate User Profile & session state in `Navbar.tsx` using `useSyncExternalStore` + `onAuthStateChange` listener (`🟢 Verified`)
+- [x] Implement Admin Login Gate (`apps/admin/src/app/login/page.tsx`) with real Google OAuth & Master Admin credentials (`🟢 Verified`)
 - [x] Implement Mission Control Dashboard (`apps/admin/src/app/dashboard/page.tsx`) with real-time leads feed, pipeline metrics, and system quick-actions (`🟢 Verified`)
 - [ ] Implement Blog Post rich block editor
 - [ ] Implement Project & Case Study manager
