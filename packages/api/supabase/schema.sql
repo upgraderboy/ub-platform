@@ -142,3 +142,4 @@ alter table public.bookmarks enable row level security;
 create policy "Users can view and manage their own bookmarks"
   on public.bookmarks for all
   using (auth.uid() = user_id);
+

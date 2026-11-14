@@ -45,3 +45,15 @@ export const LeadSchema = z.object({
   createdAt: z.string(),
 });
 export type Lead = z.infer<typeof LeadSchema>;
+
+/* ── Contact Form Schema (minimal contact page intake) ── */
+export const ContactFormSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().email('Please enter a valid email address'),
+  phone: z.string().optional(),
+  subject: z.string().min(3, 'Subject must be at least 3 characters'),
+  message: z.string().min(10, 'Message must be at least 10 characters'),
+  fileName: z.string().optional(),
+  fileSize: z.number().optional(),
+});
+export type ContactForm = z.infer<typeof ContactFormSchema>;

@@ -38,3 +38,4 @@ export const AuthSignupPayloadSchema = z.object({
   phone: z.string().optional(),
 });
 export type AuthSignupPayload = z.infer<typeof AuthSignupPayloadSchema>;
+

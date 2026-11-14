@@ -167,31 +167,20 @@
     - **Verified Across All Platform Routes**: Fully backward-compatible across `/memories`, `/resources`, `/blogs`, and `/projects`.
   - Multi-category cross-tagging support (`categories: ['hackathons', 'college', 'milestones']`)
   - Verified browser recording: `polaroid_chronicle_preview_1791369010342.webp`
-- [x] Implement `/contact` dedicated consultation booking page (`🟢 Verified`)
-  - **Track 1: Interactive Strategy Call Scheduler (`ConsultationBookingCalendar`)**:
-    - Topic selection: Web Architecture, Mobile Apps, AI Workflows, Code Review
-    - Duration format: 15-min Discovery Chat vs 45-min Deep-Dive Strategy
-    - Horizontal date picker swiper & time slot matrix with multi-timezone switcher (`IST`, `UTC`, `EST`, `PST`, `CET`)
-    - Client details intake (Name, Email, WhatsApp, Brief)
-    - Google Calendar 1-click URL generator, downloadable `.ics` file, and direct WhatsApp sync to Ankit Bhuria
-  - **Track 2: Interactive Project Scope Estimator (`ProjectScopeEstimator`)**:
-    - Real-time technical scope calculation, weeks delivery estimate, and currency toggle (`₹ INR` / `$ USD`)
-    - Architecture platform selection and add-on checklist (Auth RBAC, AI Agents, Payments, Docker CI/CD, Enterprise SEO)
-    - Direct API route `/api/lead` backed by strict `LeadSchema` validation from `packages/types`
-  - **Agency SLA & Trust Matrix**: 4-hour response SLA, mutual NDA upfront, SIH 2024 trophy, and 30-day post-launch warranty
-  - **Agency Physical HQ & Founder Contact Card**: Near Toll Tax, Sikar Road, Jhunjhunu, Rajasthan with direct phone/WhatsApp (+91 91662 71496) and FAQ section
+- [x] Implement `/contact` — Redesigned Minimal Contact Hub (`🟢 Verified — v2 Redesign`)
+  - **Interactive Social Handles Grid**: 7 platform cards (Instagram, LinkedIn, GitHub, YouTube, Twitter/X, Facebook, WhatsApp) with brand-color hover fills, scale animations, and direct platform redirects
+  - **Contact Form with Auth Pre-Fill**: Name, Email, Phone (optional), Subject, Message, File Upload (optional, max 10 MB) — auto-prefills signed-in user details from `ub_user_session` via `useSyncExternalStore`
+  - **New `/api/contact` route**: Strict `ContactFormSchema` Zod validation from `packages/types`
+  - **Info Cards Sidebar**: Agency HQ location (Google Maps link), Direct Phone/WhatsApp (+91 91662 71496), Email (ankit@upgraderboy.com)
+  - **SLA Trust Badges**: ≤ 4h Response, NDA Ready
+  - **Refreshed FAQ Section**: 4 commonly asked questions with clean card layout
+  - **Architecture**: Server Component (`page.tsx` with metadata) rendering `ContactPageClient.tsx` (`'use client'`)
 - [x] Implement Google Sitelinks Searchbox & Rich Structured Data (`🟢 Verified`)
   - **Root Metadata Title & Description**: Match exact branding `Upgrader Boy - Portfolio, Blogs, Projects` and `Tech. That Makes Trends`
   - **Google Sitelinks Searchbox (`schema.org/WebSite` + `SearchAction`)**: Enables Google site-specific search box in SERP results
   - **Google Sitelinks Hierarchy (`SiteNavigationElement` + `ItemList`)**: Structured data for sub-routes (`/blogs`, `/projects`, `/memories`, `/resources`) with exact title and description pairs
   - **Dynamic Next.js XML Sitemap (`sitemap.ts`)**: Auto-generated priority routes with daily/weekly change frequencies
   - **Search Crawler Directives (`robots.ts`)**: Universal allow with Googlebot support and sitemap index linkage
-- [x] Implement Dual Experience Mode Switcher (`💼 Client Mode` ⟷ `⚡ Developer Mode`) (`🟢 Verified`):
-  - **Client Mode**: Welcoming human-first agency aesthetic inspired by original `ub-portfolio-26` with midnight navy `#0e1630` background, rich `#171F38` elevated cards, fresh emerald green `#01C369` accents, friendly **Poppins** typography, and waving hand greeting (`Hi, I'm Ankit Bhuria 👋`).
-  - **Developer Mode**: Cyberpunk developer showcase with interactive Upgrader Shell CLI terminal, 3D avatar tilt card, monospaced tech telemetry, and system schemas.
-  - **Zero-Flash State Sync**: Reactive `useExperienceMode` hook backed by `useSyncExternalStore` and `<head>` attribute initialization (`data-experience="client" | "developer"`).
-  - **Responsive Switcher Pills**: Integrated into Desktop Navbar and Mobile Drawer menu with 1-click smooth transition.
-  - **Section Transformation**: Dynamic Hero rendering and `TerminalSection` transformation into an interactive Agency Engineering Process roadmap in Client Mode.
 - [ ] Implement `/tools` developer micro-utilities playground
 
 ### Phase 3: Decoupled CMS Admin Portal (`apps/admin`) & Supabase Auth
