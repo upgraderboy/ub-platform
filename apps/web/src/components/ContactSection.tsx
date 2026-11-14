@@ -65,7 +65,7 @@ export function ContactSection() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-slate-900 dark:text-white">Phone / WhatsApp</h4>
-                  <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">+91 91662 71496</p>
+                  <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">+91 88903 09622</p>
                 </div>
               </div>
 
@@ -112,7 +112,7 @@ export function ContactSection() {
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="ankit@upgraderboy.com"
+                    placeholder="john@dove.com"
                     className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white text-sm focus:border-[var(--accent-color)] focus:outline-none"
                   />
                 </div>

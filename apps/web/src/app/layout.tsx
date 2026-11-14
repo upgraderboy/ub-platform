@@ -162,9 +162,9 @@ const organizationJsonLd = {
   },
   contactPoint: {
     '@type': 'ContactPoint',
-    telephone: '+91-91662-71496',
+    telephone: '+91-88903-09622',
     contactType: 'customer service',
-    email: 'ankit@upgraderboy.com',
+    email: 'upgraderboy@gmail.com',
   },
 };
 

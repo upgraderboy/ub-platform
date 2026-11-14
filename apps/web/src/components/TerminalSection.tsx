@@ -71,14 +71,14 @@ export function TerminalSection() {
         id: (Date.now() + 1).toString(),
         type: 'output',
         content:
-          'HQ: Near Toll Tax, Sikar Road, Jhunjhunu, Rajasthan, 333001 | Phone / WhatsApp: +91 91662 71496 | Email: ankit@upgraderboy.com',
+          'HQ: Near Toll Tax, Sikar Road, Jhunjhunu, Rajasthan, 333001 | Phone / WhatsApp: +91 88903 09622 | Email: upgraderboy@gmail.com',
       });
     } else if (cmd === 'socials') {
       newHistory.push({
         id: (Date.now() + 1).toString(),
         type: 'output',
         content:
-          'YouTube (@upgraderboy), LinkedIn (/in/upgraderboy), X (@upgraderboy), Instagram (@upgraderboy), WhatsApp (+91 91662 71496)',
+          'YouTube (@upgraderboy), LinkedIn (/in/upgraderboy), X (@upgraderboy), Instagram (@upgraderboy), WhatsApp (+91 88903 09622)',
       });
     } else if (cmd === 'clear') {
       setHistory([

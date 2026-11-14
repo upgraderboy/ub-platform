@@ -65,7 +65,7 @@ const SAMPLE_LEADS: LeadSummary[] = [
 
 const AUTHORIZED_ADMIN_EMAILS = [
   'upgraderboy@gmail.com',
-  'ankit@upgraderboy.com',
+  'upgraderboy@gmail.com',
 ];
 
 export default function AdminDashboardPage() {
@@ -213,7 +213,7 @@ export default function AdminDashboardPage() {
               <span>COMMAND COCKPIT ACTIVE</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-heading font-black text-white">
-              Welcome back, Ankit.
+              Welcome back, Upgrader Boy.
             </h2>
             <p className="text-xs sm:text-sm text-slate-400 mt-1">
               All systems online. Your public portfolio is serving sub-100ms globally via Vercel Edge CDN.
@@ -400,7 +400,7 @@ export default function AdminDashboardPage() {
 
                 <div className="flex items-center space-x-2 shrink-0">
                   <a
-                    href={`https://wa.me/919166271496?text=Hi%20${encodeURIComponent(lead.name)},%20thank%20you%20for%20contacting%20Upgrader%20Boy!`}
+                    href={`https://wa.me/918890309622?text=Hi%20${encodeURIComponent(lead.name)},%20thank%20you%20for%20contacting%20Upgrader%20Boy!`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2 rounded-xl bg-slate-800 hover:bg-emerald-500/20 text-slate-300 hover:text-emerald-400 border border-slate-700 hover:border-emerald-500/30 transition-all text-xs flex items-center space-x-1"

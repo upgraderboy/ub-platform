@@ -126,8 +126,8 @@ const SOCIAL_HANDLES = [
   },
   {
     name: 'WhatsApp',
-    handle: '+91 91662 71496',
-    url: 'https://wa.me/919166271496',
+    handle: '+91 88903 09622',
+    url: 'https://wa.me/918890309622',
     Icon: WhatsAppIcon,
     hoverBg: 'hover:bg-[#25D366]',
     hoverBorder: 'hover:border-[#25D366]/50',
@@ -140,7 +140,7 @@ const SOCIAL_HANDLES = [
 const FAQ_ITEMS = [
   {
     q: 'How quickly will I get a response?',
-    a: 'Ankit personally reviews every inquiry and responds within 4 hours during IST business hours (08:00–20:00). Urgent requests via WhatsApp are typically answered faster.',
+    a: 'Upgrader Boy personally reviews every inquiry and responds within 4 hours during IST business hours (08:00–20:00). Urgent requests via WhatsApp are typically answered faster.',
   },
   {
     q: 'Can we sign an NDA before discussing my project?',
@@ -524,13 +524,13 @@ export function ContactPageClient() {
               </div>
               <div>
                 <h3 className="font-heading font-bold text-sm text-slate-900 dark:text-white">Direct Line</h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">+91 91662 71496</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">+91 88903 09622</p>
               </div>
             </div>
             <div className="flex items-center justify-between text-xs pt-2 border-t border-slate-100 dark:border-slate-800">
               <span className="text-slate-400 font-mono">Replies &lt; 4h</span>
               <a
-                href="https://wa.me/919166271496"
+                href="https://wa.me/918890309622"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-emerald-400 font-bold hover:underline flex items-center space-x-1"
@@ -549,13 +549,13 @@ export function ContactPageClient() {
               </div>
               <div>
                 <h3 className="font-heading font-bold text-sm text-slate-900 dark:text-white">Email</h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">ankit@upgraderboy.com</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">upgraderboy@gmail.com</p>
               </div>
             </div>
             <div className="flex items-center justify-between text-xs pt-2 border-t border-slate-100 dark:border-slate-800">
               <span className="text-slate-400 font-mono">For proposals &amp; docs</span>
               <a
-                href="mailto:ankit@upgraderboy.com"
+                href="mailto:upgraderboy@gmail.com"
                 className="text-sky-400 font-bold hover:underline flex items-center space-x-1"
               >
                 <Mail className="w-3 h-3" />

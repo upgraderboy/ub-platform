@@ -47,8 +47,8 @@ export function CommunitySection() {
     },
     {
       name: 'WhatsApp',
-      handle: '+91 91662 71496',
-      url: 'https://wa.me/+919166271496',
+      handle: '+91 88903 09622',
+      url: 'https://wa.me/918890309622',
       icon: WhatsAppIcon,
       color: 'text-green-500',
     },
