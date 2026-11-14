@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
   ShieldCheck,
@@ -19,7 +19,7 @@ const AUTHORIZED_ADMIN_EMAILS = [
   'ankit@upgraderboy.com',
 ];
 
-export default function AdminLoginPage() {
+function AdminLoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const isUnauthorized = searchParams?.get('error') === 'unauthorized';
@@ -281,5 +281,20 @@ export default function AdminLoginPage() {
 
       </div>
     </div>
+  );
+}
+
+export default function AdminLoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-[#070A11] flex flex-col items-center justify-center text-slate-400">
+          <div className="w-8 h-8 border-2 border-[var(--accent-color)] border-t-transparent rounded-full animate-spin mb-4" />
+          <p className="text-xs font-mono">Loading Administrative Portal...</p>
+        </div>
+      }
+    >
+      <AdminLoginForm />
+    </Suspense>
   );
 }
