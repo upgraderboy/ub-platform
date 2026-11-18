@@ -193,6 +193,11 @@
 - [x] Implement Admin Login Gate (`apps/admin/src/app/login/page.tsx`) with real Google OAuth & Master Admin credentials (`🟢 Verified`)
 - [x] Implement dedicated Admin Auth Callback Handler (`apps/admin/src/app/auth/callback/page.tsx`) & resilient session synchronization (`🟢 Verified: handles OAuth code exchange, auto-redirect for existing sessions, prevents premature bailing`)
 - [x] Implement Mission Control Dashboard (`apps/admin/src/app/dashboard/page.tsx`) with real-time leads feed, pipeline metrics, and system quick-actions (`🟢 Verified`)
+- [x] Implement Premium Admin Shell & Layout Architecture (`🟢 Verified`)
+  - **Collapsible Sidebar (`Sidebar.tsx`)**: Desktop fixed/collapsed modes (60px vs 240px) with icon-only and full label displays, keyboard search shortcut (`⌘K`), operational status badge, sectioned navigation (Overview, Content, Business, System)
+  - **Modern Mobile Navigation Drawer**: Modal overlay with backdrop blur, accessible navigation, and automatic close on navigation item selection
+  - **Dynamic TopBar (`TopBar.tsx`)**: Dynamic breadcrumb trail derived from route segments, collapse toggle, external public site link (`upgraderboy.com`), notification bell, and administrator identity chip with 1-click sign-out
+  - **Decoupled Shell Wrapper (`AdminShell.tsx` & `layout.tsx`)**: Centralized authentication verification, OAuth token synchronization, and unified layout applied across all `/dashboard/*` routes
 - [ ] Implement Blog Post rich block editor
 - [ ] Implement Project & Case Study manager
 - [ ] Implement Visual Resource Category Tree & PDF catalog manager
