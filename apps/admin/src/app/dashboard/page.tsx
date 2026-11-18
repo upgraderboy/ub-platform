@@ -66,7 +66,7 @@ const SAMPLE_LEADS: LeadSummary[] = [
 
 const AUTHORIZED_ADMIN_EMAILS = [
   'upgraderboy@gmail.com',
-  'upgraderboy@gmail.com',
+  'ankit@upgraderboy.com',
 ];
 
 export default function AdminDashboardPage() {
@@ -75,16 +75,17 @@ export default function AdminDashboardPage() {
   const [isVerifying, setIsVerifying] = useState(true);
 
   useEffect(() => {
-    async function verifyAdminAuth() {
-      const supabase = getSupabaseBrowserClient();
-      if (!supabase) {
-        router.replace('/login');
-        return;
-      }
+    let isMounted = true;
+    const supabase = getSupabaseBrowserClient();
 
-      const { data: { user } } = await supabase.auth.getUser();
+    if (!supabase) {
+      router.replace('/login');
+      return;
+    }
+
+    async function verifyUser(user: { id: string; email?: string; user_metadata?: Record<string, unknown> } | null) {
       if (!user) {
-        router.replace('/login');
+        if (isMounted) router.replace('/login');
         return;
       }
 
@@ -94,7 +95,7 @@ export default function AdminDashboardPage() {
         AUTHORIZED_ADMIN_EMAILS.includes(user.email.toLowerCase());
 
       let isRoleAdmin = false;
-      const { data: profile } = await supabase
+      const { data: profile } = await supabase!
         .from('profiles')
         .select('role')
         .eq('id', user.id)
@@ -106,21 +107,57 @@ export default function AdminDashboardPage() {
 
       if (!isEmailAuthorized && !isRoleAdmin) {
         // Immediately kick out unauthorized users and sign them out
-        await supabase.auth.signOut();
+        await supabase!.auth.signOut();
         localStorage.removeItem('ub_admin_session');
-        router.replace('/login?error=unauthorized');
+        if (isMounted) router.replace('/login?error=unauthorized');
         return;
       }
 
-      setAdminUser({
-        email: user.email,
-        username: user.user_metadata?.username || 'upgraderboy',
-      });
-      setIsVerifying(false);
+      if (isMounted) {
+        setAdminUser({
+          email: user.email,
+          username: (user.user_metadata?.username as string) || (user.user_metadata?.full_name as string) || 'upgraderboy',
+        });
+        setIsVerifying(false);
+      }
     }
 
-    void verifyAdminAuth();
-  }, [router]);
+    // 1. Check existing session immediately
+    void supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) {
+        void verifyUser(session.user);
+      } else {
+        // If no instant session, wait briefly for any URL hash/code hydration before bailing
+        const fallbackTimer = setTimeout(() => {
+          if (isMounted && isVerifying) {
+            void supabase!.auth.getUser().then(({ data: { user } }) => {
+              if (user) {
+                void verifyUser(user);
+              } else {
+                router.replace('/login');
+              }
+            });
+          }
+        }, 1500);
+
+        return () => clearTimeout(fallbackTimer);
+      }
+    });
+
+    // 2. Listen to onAuthStateChange for OAuth token / code events
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session?.user) {
+        void verifyUser(session.user);
+      } else if (event === 'SIGNED_OUT') {
+        if (isMounted) router.replace('/login');
+      }
+    });
+
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
+  }, [router, isVerifying]);
 
   const handleSignOut = async () => {
     const supabase = getSupabaseBrowserClient();

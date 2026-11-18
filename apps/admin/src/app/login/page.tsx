@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, Suspense } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
@@ -34,6 +34,20 @@ function AdminLoginForm() {
       : '',
   );
 
+  useEffect(() => {
+    const supabase = getSupabaseBrowserClient();
+    if (!supabase || isUnauthorized) return;
+
+    void supabase.auth.getSession().then(({ data: { session } }) => {
+      if (
+        session?.user?.email &&
+        AUTHORIZED_ADMIN_EMAILS.includes(session.user.email.toLowerCase())
+      ) {
+        router.replace('/dashboard');
+      }
+    });
+  }, [router, isUnauthorized]);
+
   const handleGoogleLogin = async () => {
     setIsLoading(true);
     setErrorMessage('');
@@ -44,10 +58,15 @@ function AdminLoginForm() {
         throw new Error('Supabase client is not configured. Please check your environment variables.');
       }
 
+      const redirectOrigin = typeof window !== 'undefined'
+        ? window.location.origin
+        : 'http://localhost:3001';
+      const redirectUrl = `${redirectOrigin}/auth/callback?next=/dashboard`;
+
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/dashboard`,
+          redirectTo: redirectUrl,
         },
       });
 

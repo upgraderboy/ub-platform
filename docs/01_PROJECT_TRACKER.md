@@ -191,6 +191,7 @@
 - [x] Implement Public User Auth Modal on `apps/web` (`AuthModal.tsx` real Supabase Auth: Google OAuth, Email/Username/Phone + Password, zero mock fallback) (`🟢 Verified`)
 - [x] Integrate User Profile & session state in `Navbar.tsx` using `useSyncExternalStore` + `onAuthStateChange` listener (`🟢 Verified`)
 - [x] Implement Admin Login Gate (`apps/admin/src/app/login/page.tsx`) with real Google OAuth & Master Admin credentials (`🟢 Verified`)
+- [x] Implement dedicated Admin Auth Callback Handler (`apps/admin/src/app/auth/callback/page.tsx`) & resilient session synchronization (`🟢 Verified: handles OAuth code exchange, auto-redirect for existing sessions, prevents premature bailing`)
 - [x] Implement Mission Control Dashboard (`apps/admin/src/app/dashboard/page.tsx`) with real-time leads feed, pipeline metrics, and system quick-actions (`🟢 Verified`)
 - [ ] Implement Blog Post rich block editor
 - [ ] Implement Project & Case Study manager
